@@ -37,11 +37,25 @@
         }
       </div>
       <div class="text-center">
-        <button class="btn btn-primary mr-1">Login</button>
+        <button class="btn btn-primary mr-1" type="submit" [disabled]="isSubmitting">
+          @if (isSubmitting) {
+            Logging in...
+          } @else {
+            Login
+          }
+        </button>
         <button class="btn btn-secondary" type="reset" (click)="onReset()">
           Cancel
         </button>
       </div>
+
+      @if (submitted && loginStatus === 'error') {
+        <div class="alert alert-danger mt-3">Login or password is invalid</div>
+      }
+
+      @if (submitted && loginStatus === 'success') {
+        <div class="alert alert-success mt-3">Login successful</div>
+      }
     </form>
   </div>
 </div>

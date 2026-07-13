@@ -50,9 +50,14 @@ export class RegisterComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(
       () => {
+      //  log.info('XXX 1207 XXX OK during registration:');
         alert('SUCCESS!! :-)');
         // TODO : router l'utilisateur vers la page de login
       },
+      // (err) => {
+      //   // log.info('XXX 1207 XXX Error during registration:', err);
+      //   console.error(err)
+      // },
     );
   }
 
