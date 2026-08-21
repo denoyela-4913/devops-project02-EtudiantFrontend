@@ -1,13 +1,14 @@
 import { Routes } from '@angular/router';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
-import { AppComponent } from './app.component';
+import { EtudiantMenuComponent } from './pages/etudiant-menu/etudiant-menu.component';
+import { EtudiantListComponent } from './pages/etudiant-list/etudiant-list.component';
+import { EtudiantDetailComponent } from './pages/etudiant-detail/etudiant-detail.component';
+import { EtudiantCreateComponent } from './pages/etudiant-create/etudiant-create.component';
+import { EtudiantUpdateComponent } from './pages/etudiant-update/etudiant-update.component';
+import { EtudiantDeleteComponent } from './pages/etudiant-delete/etudiant-delete.component';
 
 export const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: AppComponent,
-  // },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'register',
@@ -16,5 +17,29 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'etudiants',
+    component: EtudiantMenuComponent
+  },
+  {
+    path: 'etudiants/liste',
+    component: EtudiantListComponent
+  },
+  {
+    path: 'etudiants/detail',
+    component: EtudiantDetailComponent
+  },
+  {
+    path: 'etudiants/creer',
+    component: EtudiantCreateComponent
+  },
+  {
+    path: 'etudiants/modifier',
+    component: EtudiantUpdateComponent
+  },
+  {
+    path: 'etudiants/supprimer',
+    component: EtudiantDeleteComponent
   }
 ];

@@ -1,8 +1,10 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { MaterialModule } from '../../shared/material.module';
 import { UserService } from '../../core/service/user.service';
+import { AuthService } from '../../core/service/auth.service';
 import { Login } from '../../core/models/Login';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -10,13 +12,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: 'app-login',
   imports: [CommonModule, MaterialModule],
   templateUrl: './login.component.html',
-  
+
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit {
   private userService = inject(UserService);
+  private authService = inject(AuthService);
   private formBuilder = inject(FormBuilder);
   private destroyRef = inject(DestroyRef);
+  private router = inject(Router);
   loginForm: FormGroup = new FormGroup({});
   submitted: boolean = false;
   invalidCredentials: boolean = false;
@@ -55,11 +59,12 @@ export class LoginComponent implements OnInit {
     this.userService.login(loginUser)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: () => {
+        next: (response) => {
+          this.authService.setToken(response.token);
           this.invalidCredentials = false;
           this.loginStatus = 'success';
           this.isSubmitting = false;
-          // TODO : router l'utilisateur vers la page d'accueil
+          this.router.navigate(['/etudiants']);
         },
         error: () => {
           this.invalidCredentials = true;
