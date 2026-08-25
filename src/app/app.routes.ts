@@ -7,11 +7,11 @@ import { EtudiantDetailComponent } from './pages/etudiant-detail/etudiant-detail
 import { EtudiantCreateComponent } from './pages/etudiant-create/etudiant-create.component';
 import { EtudiantUpdateComponent } from './pages/etudiant-update/etudiant-update.component';
 import { EtudiantDeleteComponent } from './pages/etudiant-delete/etudiant-delete.component';
+import { authGuard } from './core/guards/auth.guard';
 
 /**
- * Routes de l'application. Aucune n'est protégée par un guard : l'accès aux pages `/etudiants/*`
- * sans être connecté est possible côté navigation, seules les requêtes HTTP échoueront (401)
- * faute de JWT valide.
+ * Routes de l'application. Le sous-arbre `/etudiants/*` est protégé par `authGuard` posé sur la
+ * route parente : toute tentative d'y accéder sans JWT valide redirige vers `/login`.
  */
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -25,26 +25,14 @@ export const routes: Routes = [
   },
   {
     path: 'etudiants',
-    component: EtudiantMenuComponent
-  },
-  {
-    path: 'etudiants/liste',
-    component: EtudiantListComponent
-  },
-  {
-    path: 'etudiants/detail',
-    component: EtudiantDetailComponent
-  },
-  {
-    path: 'etudiants/creer',
-    component: EtudiantCreateComponent
-  },
-  {
-    path: 'etudiants/modifier',
-    component: EtudiantUpdateComponent
-  },
-  {
-    path: 'etudiants/supprimer',
-    component: EtudiantDeleteComponent
+    canActivate: [authGuard],
+    children: [
+      { path: '', component: EtudiantMenuComponent },
+      { path: 'liste', component: EtudiantListComponent },
+      { path: 'detail', component: EtudiantDetailComponent },
+      { path: 'creer', component: EtudiantCreateComponent },
+      { path: 'modifier', component: EtudiantUpdateComponent },
+      { path: 'supprimer', component: EtudiantDeleteComponent }
+    ]
   }
 ];
