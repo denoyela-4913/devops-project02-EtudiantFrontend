@@ -8,6 +8,11 @@ import { EtudiantCreateComponent } from './pages/etudiant-create/etudiant-create
 import { EtudiantUpdateComponent } from './pages/etudiant-update/etudiant-update.component';
 import { EtudiantDeleteComponent } from './pages/etudiant-delete/etudiant-delete.component';
 
+/**
+ * Routes de l'application. Aucune n'est protégée par un guard : l'accès aux pages `/etudiants/*`
+ * sans être connecté est possible côté navigation, seules les requêtes HTTP échoueront (401)
+ * faute de JWT valide.
+ */
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {

@@ -62,6 +62,7 @@ const materialModules = [
   PortalModule
 ];
 
+/** Regroupe les modules Angular Material/CDK utilisés par les pages, pour un import unique dans les composants standalone. */
 @NgModule({
   imports: [
     ...materialModules

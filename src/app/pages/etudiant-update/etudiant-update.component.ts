@@ -18,6 +18,12 @@ const UPDATE_SUCCESS_STATUS = 200;
   templateUrl: './etudiant-update.component.html',
   styleUrl: './etudiant-update.component.css'
 })
+/**
+ * Modification d'un étudiant en deux étapes distinctes, chacune avec son propre formulaire :
+ * `loadForm` (saisie de l'id) charge l'étudiant via `onLoad`, puis `updateForm` (pré-rempli)
+ * envoie les changements via `onUpdate`. Toujours possible de recharger un autre id sans
+ * recharger la page.
+ */
 export class EtudiantUpdateComponent implements OnInit {
   private etudiantService = inject(EtudiantService);
   private authService = inject(AuthService);
@@ -55,6 +61,7 @@ export class EtudiantUpdateComponent implements OnInit {
     return this.updateForm.controls;
   }
 
+  /** Récupère l'étudiant `loadForm.id` et pré-remplit `updateForm` avec ses valeurs. */
   onLoad(): void {
     this.loadSubmitted = true;
     this.loadError = false;
@@ -83,6 +90,7 @@ export class EtudiantUpdateComponent implements OnInit {
       });
   }
 
+  /** Texte du tooltip : code + libellé HTTP, et message d'erreur du backend en cas d'échec. */
   get updateTooltip(): string {
     if (!this.updateResult) {
       return '';
@@ -93,6 +101,7 @@ export class EtudiantUpdateComponent implements OnInit {
       : `${statusLine}\n${this.updateResult.message}`;
   }
 
+  /** Envoie `updateForm` pour l'id chargé par `onLoad` (id lu depuis `loadForm`, pas depuis `updateForm`). */
   onUpdate(): void {
     this.updateSubmitted = true;
     this.updateStatus = 'idle';

@@ -72,11 +72,11 @@
       </div>
 
       @if (submitted && createStatus === 'error') {
-        <div class="alert alert-danger mt-3">La création a échoué.</div>
+        <div class="alert alert-danger mt-3" [matTooltip]="createTooltip" matTooltipClass="status-tooltip-multiline" matTooltipPosition="above">La création a échoué.</div>
       }
 
       @if (createStatus === 'success') {
-        <div class="alert alert-success mt-3">Étudiant créé avec succès.</div>
+        <div class="alert alert-success mt-3" [matTooltip]="createTooltip" matTooltipClass="status-tooltip-multiline" matTooltipPosition="above">Étudiant créé avec succès.</div>
       }
     </form>
   </div>

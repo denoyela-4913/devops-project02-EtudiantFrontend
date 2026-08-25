@@ -12,6 +12,7 @@ import { Etudiant } from '../../core/models/Etudiant';
   templateUrl: './etudiant-list.component.html',
   styleUrl: './etudiant-list.component.css'
 })
+/** Charge et affiche la liste complète des étudiants au chargement de la page. */
 export class EtudiantListComponent implements OnInit {
   private etudiantService = inject(EtudiantService);
   private authService = inject(AuthService);

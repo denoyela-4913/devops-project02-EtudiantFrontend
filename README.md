@@ -21,6 +21,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 - [⚙️ Stack technique](#️-stack-technique)
 - [🖥️ Pages & fonctionnalités](#️-pages--fonctionnalités)
 - [🔌 Consommation de l'API backend](#-consommation-de-lapi-backend)
+- [💬 Infobulles de statut (succès / erreur)](#-infobulles-de-statut-succès--erreur)
 - [🔐 Authentification](#-authentification)
 - [🚀 Installation & lancement](#-installation--lancement)
 - [🧪 Tests](#-tests)
@@ -50,7 +51,9 @@ EtudiantFrontend/
 │   │   │   ├── etudiant-update/      # Modification d'un étudiant
 │   │   │   └── etudiant-delete/      # Suppression d'un étudiant
 │   │   ├── shared/
-│   │   │   └── material.module.ts    # Regroupement des modules Angular Material
+│   │   │   ├── material.module.ts    # Regroupement des modules Angular Material
+│   │   │   └── utils/
+│   │   │       └── http-status.util.ts  # Libellé humain d'un code HTTP (200 → "OK", 409 → "Conflict", ...)
 │   │   ├── app.routes.ts             # Table de routage
 │   │   └── app.config.ts             # Configuration de l'application (providers)
 │   └── ...
@@ -103,6 +106,32 @@ En développement, les appels `/api/*` sont redirigés vers le backend via `prox
 | `POST` | `/api/etudiants` | `EtudiantService.create` | Crée un étudiant |
 | `PUT` | `/api/etudiants/:id` | `EtudiantService.update` | Modifie un étudiant |
 | `DELETE` | `/api/etudiants/:id` | `EtudiantService.delete` | Supprime un étudiant |
+
+---
+
+## 💬 Infobulles de statut (succès / erreur)
+
+Sur les formulaires **Créer**, **Modifier** et **Supprimer** un étudiant, le message de résultat (encadré vert = succès, encadré rouge = échec) affiche une **infobulle au survol de la souris**. Le but : rendre le résultat de l'action compréhensible même pour un lecteur qui ne connaît pas les codes HTTP — un `200` ou un `204` tout seul ne veut rien dire pour tout le monde.
+
+L'infobulle affiche :
+- **En cas de succès** : le code HTTP et son libellé standard (ex. `201 Created`). Quand le libellé seul ne suffit pas à comprendre qu'il s'agit d'une réussite (ex. `204 No Content` après une suppression), la mention `(OK)` est ajoutée à la fin.
+- **En cas d'erreur** : le code HTTP et son libellé standard, puis sur la ligne suivante le message d'erreur exact renvoyé par le backend (ex. `Un étudiant avec l'email john.doe8@gmail.com existe déjà`).
+
+| Code | Libellé HTTP | Ce que ça signifie concrètement | Où on peut le voir |
+|---|---|---|---|
+| `200 OK` | OK | La modification a bien été enregistrée. | Modifier (succès) |
+| `201 Created` | Created | L'étudiant a bien été créé. | Créer (succès) |
+| `204 No Content` | No Content (OK) | La suppression a réussi. Le serveur ne renvoie aucune donnée en retour, c'est normal pour une suppression. | Supprimer (succès) |
+| `400 Bad Request` | Bad Request | Les données envoyées sont invalides ou incomplètes. | Créer, Modifier, Supprimer (erreur) |
+| `401 Unauthorized` | Unauthorized | La session n'est plus valide, une reconnexion est nécessaire. | Créer, Modifier, Supprimer (erreur) |
+| `403 Forbidden` | Forbidden | L'action n'est pas autorisée pour cet utilisateur. | Créer, Modifier, Supprimer (erreur) |
+| `404 Not Found` | Not Found | L'étudiant demandé n'existe pas (identifiant inconnu ou déjà supprimé). | Modifier, Supprimer (erreur) |
+| `409 Conflict` | Conflict | Un étudiant avec les mêmes informations (ex. email) existe déjà. | Créer, Modifier (erreur) |
+| `500 Internal Server Error` | Internal Server Error | Une erreur imprévue est survenue côté serveur. | Créer, Modifier, Supprimer (erreur) |
+
+Ce mapping code → libellé est calculé côté frontend dans [`shared/utils/http-status.util.ts`](src/app/shared/utils/http-status.util.ts), plutôt que de dépendre du `statusText` renvoyé par le navigateur (non garanti selon les environnements).
+
+> **Détail** et **Liste** n'affichent pas cette infobulle : sur ces deux pages, le backend ne renvoie aucun message exploitable en cas d'erreur (corps de réponse vide sur 404/401/500), donc afficher uniquement un code sans explication n'apporterait pas d'information utile.
 
 ---
 

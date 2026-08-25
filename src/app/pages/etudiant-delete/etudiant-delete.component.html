@@ -29,11 +29,11 @@
       </div>
 
       @if (submitted && deleteStatus === 'error') {
-        <div class="alert alert-danger mt-3">La suppression a échoué.</div>
+        <div class="alert alert-danger mt-3" [matTooltip]="deleteTooltip" matTooltipClass="status-tooltip-multiline" matTooltipPosition="above">La suppression a échoué.</div>
       }
 
       @if (deleteStatus === 'success') {
-        <div class="alert alert-success mt-3">Étudiant supprimé avec succès.</div>
+        <div class="alert alert-success mt-3" [matTooltip]="deleteTooltip" matTooltipClass="status-tooltip-multiline" matTooltipPosition="above">Étudiant supprimé avec succès.</div>
       }
     </form>
 

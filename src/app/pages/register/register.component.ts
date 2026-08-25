@@ -13,6 +13,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   standalone: true,
   styleUrl: './register.component.css'
 })
+/**
+ * Inscription d'un nouvel utilisateur. Note : en cas d'échec, l'erreur n'est ni affichée ni
+ * gérée (pas de callback `error`) — seul le succès déclenche un retour visuel (`alert`), et la
+ * redirection vers la page de login reste à implémenter (voir le TODO ci-dessous).
+ */
 export class RegisterComponent implements OnInit {
   private userService = inject(UserService);
   private formBuilder = inject(FormBuilder);

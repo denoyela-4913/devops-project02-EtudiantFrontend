@@ -1,0 +1,1437 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>etudiant-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">etudiant-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  EtudiantUpdateComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/etudiant-update/etudiant-update.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-etudiant-update</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                                <code><a href="../modules/MaterialModule.html" target="_self" >MaterialModule</a></code>
+                            <code>RouterLink</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./etudiant-update.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./etudiant-update.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#authService" >authService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#destroyRef" >destroyRef</a>
+                            </li>
+                            <li>
+                                <a href="#etudiantLoaded" >etudiantLoaded</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#etudiantService" >etudiantService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#formBuilder" >formBuilder</a>
+                            </li>
+                            <li>
+                                <a href="#isSubmitting" >isSubmitting</a>
+                            </li>
+                            <li>
+                                <a href="#loadError" >loadError</a>
+                            </li>
+                            <li>
+                                <a href="#loadForm" >loadForm</a>
+                            </li>
+                            <li>
+                                <a href="#loading" >loading</a>
+                            </li>
+                            <li>
+                                <a href="#loadSubmitted" >loadSubmitted</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#router" >router</a>
+                            </li>
+                            <li>
+                                <a href="#updateForm" >updateForm</a>
+                            </li>
+                            <li>
+                                <a href="#updateResult" >updateResult</a>
+                            </li>
+                            <li>
+                                <a href="#updateStatus" >updateStatus</a>
+                            </li>
+                            <li>
+                                <a href="#updateSubmitted" >updateSubmitted</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#logout" >logout</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onLoad" >onLoad</a>
+                            </li>
+                            <li>
+                                <a href="#onUpdate" >onUpdate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#loadFormControls" >loadFormControls</a>
+                                </li>
+                                <li>
+                                    <a href="#updateFormControls" >updateFormControls</a>
+                                </li>
+                                <li>
+                                    <a href="#updateTooltip" >updateTooltip</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logout"></a>
+                    <span class="name">
+                        <span ><b>logout</b></span>
+                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>logout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="142"
+                                    class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:142</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="45"
+                                    class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onLoad"></a>
+                    <span class="name">
+                        <span ><b>onLoad</b></span>
+                        <a href="#onLoad"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onLoad()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="65"
+                                    class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Récupère l&#39;étudiant <code>loadForm.id</code> et pré-remplit <code>updateForm</code> avec ses valeurs.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onUpdate"></a>
+                    <span class="name">
+                        <span ><b>onUpdate</b></span>
+                        <a href="#onUpdate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onUpdate()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="105"
+                                    class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:105</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Envoie <code>updateForm</code> pour l&#39;id chargé par <code>onLoad</code> (id lu depuis <code>loadForm</code>, pas depuis <code>updateForm</code>).</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>authService</b></span>
+                        <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(AuthService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="destroyRef"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>destroyRef</b></span>
+                        <a href="#destroyRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(DestroyRef)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="etudiantLoaded"></a>
+                    <span class="name">
+                        <span ><b>etudiantLoaded</b></span>
+                        <a href="#etudiantLoaded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="etudiantService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>etudiantService</b></span>
+                        <a href="#etudiantService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(EtudiantService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formBuilder"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>formBuilder</b></span>
+                        <a href="#formBuilder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(FormBuilder)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isSubmitting"></a>
+                    <span class="name">
+                        <span ><b>isSubmitting</b></span>
+                        <a href="#isSubmitting"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadError"></a>
+                    <span class="name">
+                        <span ><b>loadError</b></span>
+                        <a href="#loadError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadForm"></a>
+                    <span class="name">
+                        <span ><b>loadForm</b></span>
+                        <a href="#loadForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new FormGroup({})</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loading"></a>
+                    <span class="name">
+                        <span ><b>loading</b></span>
+                        <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadSubmitted"></a>
+                    <span class="name">
+                        <span ><b>loadSubmitted</b></span>
+                        <a href="#loadSubmitted"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="router"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>router</b></span>
+                        <a href="#router"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(Router)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateForm"></a>
+                    <span class="name">
+                        <span ><b>updateForm</b></span>
+                        <a href="#updateForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new FormGroup({})</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateResult"></a>
+                    <span class="name">
+                        <span ><b>updateResult</b></span>
+                        <a href="#updateResult"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateStatus"></a>
+                    <span class="name">
+                        <span ><b>updateStatus</b></span>
+                        <a href="#updateStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;idle&quot; | &quot;success&quot; | &quot;error&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;idle&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateSubmitted"></a>
+                    <span class="name">
+                        <span ><b>updateSubmitted</b></span>
+                        <a href="#updateSubmitted"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="loadFormControls"></a>
+                        <span class="name"><b>loadFormControls</b><a href="#loadFormControls"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>loadFormControls()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:56</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="updateFormControls"></a>
+                        <span class="name"><b>updateFormControls</b><a href="#updateFormControls"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>updateFormControls()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:60</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="updateTooltip"></a>
+                        <span class="name"><b>updateTooltip</b><a href="#updateTooltip"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>updateTooltip()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:94</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Texte du tooltip : code + libellé HTTP, et message d&#39;erreur du backend en cas d&#39;échec.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, DestroyRef, inject, OnInit } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { HttpErrorResponse } from &#x27;@angular/common/http&#x27;;
+import { Router, RouterLink } from &#x27;@angular/router&#x27;;
+import { MaterialModule } from &#x27;../../shared/material.module&#x27;;
+import { takeUntilDestroyed } from &#x27;@angular/core/rxjs-interop&#x27;;
+import { EtudiantService } from &#x27;../../core/service/etudiant.service&#x27;;
+import { AuthService } from &#x27;../../core/service/auth.service&#x27;;
+import { Etudiant } from &#x27;../../core/models/Etudiant&#x27;;
+import { getHttpStatusText } from &#x27;../../shared/utils/http-status.util&#x27;;
+
+const UPDATE_SUCCESS_STATUS &#x3D; 200;
+
+@Component({
+  selector: &#x27;app-etudiant-update&#x27;,
+  imports: [CommonModule, MaterialModule, RouterLink],
+  templateUrl: &#x27;./etudiant-update.component.html&#x27;,
+  styleUrl: &#x27;./etudiant-update.component.css&#x27;
+})
+/**
+ * Modification d&#x27;un étudiant en deux étapes distinctes, chacune avec son propre formulaire :
+ * &#x60;loadForm&#x60; (saisie de l&#x27;id) charge l&#x27;étudiant via &#x60;onLoad&#x60;, puis &#x60;updateForm&#x60; (pré-rempli)
+ * envoie les changements via &#x60;onUpdate&#x60;. Toujours possible de recharger un autre id sans
+ * recharger la page.
+ */
+export class EtudiantUpdateComponent implements OnInit {
+  private etudiantService &#x3D; inject(EtudiantService);
+  private authService &#x3D; inject(AuthService);
+  private formBuilder &#x3D; inject(FormBuilder);
+  private destroyRef &#x3D; inject(DestroyRef);
+  private router &#x3D; inject(Router);
+
+  loadForm: FormGroup &#x3D; new FormGroup({});
+  updateForm: FormGroup &#x3D; new FormGroup({});
+  loadSubmitted: boolean &#x3D; false;
+  updateSubmitted: boolean &#x3D; false;
+  loading: boolean &#x3D; false;
+  loadError: boolean &#x3D; false;
+  isSubmitting: boolean &#x3D; false;
+  updateStatus: &#x27;idle&#x27; | &#x27;success&#x27; | &#x27;error&#x27; &#x3D; &#x27;idle&#x27;;
+  updateResult: { status: number; message?: string; success: boolean } | null &#x3D; null;
+  etudiantLoaded: boolean &#x3D; false;
+
+  ngOnInit(): void {
+    this.loadForm &#x3D; this.formBuilder.group({
+      id: [&#x27;&#x27;, Validators.required]
+    });
+    this.updateForm &#x3D; this.formBuilder.group({
+      firstName: [&#x27;&#x27;, Validators.required],
+      lastName: [&#x27;&#x27;, Validators.required],
+      email: [&#x27;&#x27;, [Validators.required, Validators.email]]
+    });
+  }
+
+  get loadFormControls() {
+    return this.loadForm.controls;
+  }
+
+  get updateFormControls() {
+    return this.updateForm.controls;
+  }
+
+  /** Récupère l&#x27;étudiant &#x60;loadForm.id&#x60; et pré-remplit &#x60;updateForm&#x60; avec ses valeurs. */
+  onLoad(): void {
+    this.loadSubmitted &#x3D; true;
+    this.loadError &#x3D; false;
+    this.etudiantLoaded &#x3D; false;
+    this.updateStatus &#x3D; &#x27;idle&#x27;;
+
+    if (this.loadForm.invalid) {
+      return;
+    }
+
+    this.loading &#x3D; true;
+    const id &#x3D; this.loadForm.get(&#x27;id&#x27;)?.value;
+
+    this.etudiantService.getById(id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (etudiant) &#x3D;&gt; {
+          this.updateForm.patchValue(etudiant);
+          this.etudiantLoaded &#x3D; true;
+          this.loading &#x3D; false;
+        },
+        error: () &#x3D;&gt; {
+          this.loadError &#x3D; true;
+          this.loading &#x3D; false;
+        }
+      });
+  }
+
+  /** Texte du tooltip : code + libellé HTTP, et message d&#x27;erreur du backend en cas d&#x27;échec. */
+  get updateTooltip(): string {
+    if (!this.updateResult) {
+      return &#x27;&#x27;;
+    }
+    const statusLine &#x3D; &#x60;${this.updateResult.status} ${getHttpStatusText(this.updateResult.status)}&#x60;;
+    return this.updateResult.success
+      ? statusLine
+      : &#x60;${statusLine}\n${this.updateResult.message}&#x60;;
+  }
+
+  /** Envoie &#x60;updateForm&#x60; pour l&#x27;id chargé par &#x60;onLoad&#x60; (id lu depuis &#x60;loadForm&#x60;, pas depuis &#x60;updateForm&#x60;). */
+  onUpdate(): void {
+    this.updateSubmitted &#x3D; true;
+    this.updateStatus &#x3D; &#x27;idle&#x27;;
+    this.updateResult &#x3D; null;
+
+    if (this.updateForm.invalid) {
+      return;
+    }
+
+    this.isSubmitting &#x3D; true;
+    const id &#x3D; this.loadForm.get(&#x27;id&#x27;)?.value;
+    const etudiant: Etudiant &#x3D; {
+      firstName: this.updateForm.get(&#x27;firstName&#x27;)?.value?.trim(),
+      lastName: this.updateForm.get(&#x27;lastName&#x27;)?.value?.trim(),
+      email: this.updateForm.get(&#x27;email&#x27;)?.value?.trim()
+    };
+
+    this.etudiantService.update(id, etudiant)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () &#x3D;&gt; {
+          this.updateStatus &#x3D; &#x27;success&#x27;;
+          this.updateResult &#x3D; { status: UPDATE_SUCCESS_STATUS, success: true };
+          this.isSubmitting &#x3D; false;
+        },
+        error: (err: HttpErrorResponse) &#x3D;&gt; {
+          this.updateStatus &#x3D; &#x27;error&#x27;;
+          this.updateResult &#x3D; {
+            status: err.status,
+            message: err.error?.message ?? &#x27;Erreur inconnue.&#x27;,
+            success: false
+          };
+          this.isSubmitting &#x3D; false;
+        }
+      });
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate([&#x27;/login&#x27;]);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;card m-3&quot;&gt;
+  &lt;h5 class&#x3D;&quot;card-header&quot;&gt;Modifier un étudiant&lt;/h5&gt;
+  &lt;div class&#x3D;&quot;card-body&quot;&gt;
+    &lt;form [formGroup]&#x3D;&quot;loadForm&quot; (ngSubmit)&#x3D;&quot;onLoad()&quot;&gt;
+      &lt;div class&#x3D;&quot;form-group&quot;&gt;
+        &lt;label&gt;Id de l&#x27;étudiant&lt;/label&gt;
+        &lt;input
+          type&#x3D;&quot;number&quot;
+          formControlName&#x3D;&quot;id&quot;
+          class&#x3D;&quot;form-control&quot;
+          [ngClass]&#x3D;&quot;{ &#x27;is-invalid&#x27;: loadSubmitted &amp;&amp; loadFormControls[&#x27;id&#x27;].errors }&quot;
+        /&gt;
+        @if (loadSubmitted &amp;&amp; loadFormControls[&#x27;id&#x27;].errors) {
+          &lt;div class&#x3D;&quot;invalid-feedback&quot;&gt;
+            @if (loadFormControls[&#x27;id&#x27;].errors?.[&#x27;required&#x27;]) {
+              &lt;div&gt;L&#x27;id est requis&lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+      &lt;button class&#x3D;&quot;btn btn-primary mr-1&quot; type&#x3D;&quot;submit&quot; [disabled]&#x3D;&quot;loading&quot;&gt;
+        @if (loading) {
+          Chargement...
+        } @else {
+          Charger l&#x27;étudiant
+        }
+      &lt;/button&gt;
+
+      @if (loadSubmitted &amp;&amp; loadError) {
+        &lt;div class&#x3D;&quot;alert alert-danger mt-3&quot;&gt;Étudiant introuvable.&lt;/div&gt;
+      }
+    &lt;/form&gt;
+
+    @if (etudiantLoaded) {
+      &lt;hr&gt;
+      &lt;form [formGroup]&#x3D;&quot;updateForm&quot; (ngSubmit)&#x3D;&quot;onUpdate()&quot;&gt;
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label&gt;Prénom&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;text&quot;
+            formControlName&#x3D;&quot;firstName&quot;
+            class&#x3D;&quot;form-control&quot;
+            [ngClass]&#x3D;&quot;{ &#x27;is-invalid&#x27;: updateSubmitted &amp;&amp; updateFormControls[&#x27;firstName&#x27;].errors }&quot;
+          /&gt;
+          @if (updateSubmitted &amp;&amp; updateFormControls[&#x27;firstName&#x27;].errors) {
+            &lt;div class&#x3D;&quot;invalid-feedback&quot;&gt;
+              @if (updateFormControls[&#x27;firstName&#x27;].errors?.[&#x27;required&#x27;]) {
+                &lt;div&gt;Le prénom est requis&lt;/div&gt;
+              }
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label&gt;Nom&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;text&quot;
+            formControlName&#x3D;&quot;lastName&quot;
+            class&#x3D;&quot;form-control&quot;
+            [ngClass]&#x3D;&quot;{ &#x27;is-invalid&#x27;: updateSubmitted &amp;&amp; updateFormControls[&#x27;lastName&#x27;].errors }&quot;
+          /&gt;
+          @if (updateSubmitted &amp;&amp; updateFormControls[&#x27;lastName&#x27;].errors) {
+            &lt;div class&#x3D;&quot;invalid-feedback&quot;&gt;
+              @if (updateFormControls[&#x27;lastName&#x27;].errors?.[&#x27;required&#x27;]) {
+                &lt;div&gt;Le nom est requis&lt;/div&gt;
+              }
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;form-group&quot;&gt;
+          &lt;label&gt;Email&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;email&quot;
+            formControlName&#x3D;&quot;email&quot;
+            class&#x3D;&quot;form-control&quot;
+            [ngClass]&#x3D;&quot;{ &#x27;is-invalid&#x27;: updateSubmitted &amp;&amp; updateFormControls[&#x27;email&#x27;].errors }&quot;
+          /&gt;
+          @if (updateSubmitted &amp;&amp; updateFormControls[&#x27;email&#x27;].errors) {
+            &lt;div class&#x3D;&quot;invalid-feedback&quot;&gt;
+              @if (updateFormControls[&#x27;email&#x27;].errors?.[&#x27;required&#x27;]) {
+                &lt;div&gt;L&#x27;email est requis&lt;/div&gt;
+              }
+              @if (updateFormControls[&#x27;email&#x27;].errors?.[&#x27;email&#x27;]) {
+                &lt;div&gt;L&#x27;email doit être valide&lt;/div&gt;
+              }
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;text-center&quot;&gt;
+          &lt;button class&#x3D;&quot;btn btn-primary mr-1&quot; type&#x3D;&quot;submit&quot; [disabled]&#x3D;&quot;isSubmitting&quot;&gt;
+            @if (isSubmitting) {
+              Modification...
+            } @else {
+              Enregistrer
+            }
+          &lt;/button&gt;
+        &lt;/div&gt;
+
+        @if (updateSubmitted &amp;&amp; updateStatus &#x3D;&#x3D;&#x3D; &#x27;error&#x27;) {
+          &lt;div class&#x3D;&quot;alert alert-danger mt-3&quot; [matTooltip]&#x3D;&quot;updateTooltip&quot; matTooltipClass&#x3D;&quot;status-tooltip-multiline&quot; matTooltipPosition&#x3D;&quot;above&quot;&gt;La modification a échoué.&lt;/div&gt;
+        }
+
+        @if (updateStatus &#x3D;&#x3D;&#x3D; &#x27;success&#x27;) {
+          &lt;div class&#x3D;&quot;alert alert-success mt-3&quot; [matTooltip]&#x3D;&quot;updateTooltip&quot; matTooltipClass&#x3D;&quot;status-tooltip-multiline&quot; matTooltipPosition&#x3D;&quot;above&quot;&gt;Étudiant modifié avec succès.&lt;/div&gt;
+        }
+      &lt;/form&gt;
+    }
+
+    &lt;div class&#x3D;&quot;text-center mt-3&quot;&gt;
+      &lt;a routerLink&#x3D;&quot;/etudiants&quot; class&#x3D;&quot;btn btn-secondary mr-1&quot;&gt;Retour au menu&lt;/a&gt;
+      &lt;button class&#x3D;&quot;btn btn-secondary&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;logout()&quot;&gt;Déconnexion&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="card m-3">  <h5 class="card-header">Modifier un étudiant</h5>  <div class="card-body">    <form [formGroup]="loadForm" (ngSubmit)="onLoad()">      <div class="form-group">        <label>Id de l\'étudiant</label>        <input          type="number"          formControlName="id"          class="form-control"          [ngClass]="{ \'is-invalid\': loadSubmitted && loadFormControls[\'id\'].errors }"        />        @if (loadSubmitted && loadFormControls[\'id\'].errors) {          <div class="invalid-feedback">            @if (loadFormControls[\'id\'].errors?.[\'required\']) {              <div>L\'id est requis</div>            }          </div>        }      </div>      <button class="btn btn-primary mr-1" type="submit" [disabled]="loading">        @if (loading) {          Chargement...        } @else {          Charger l\'étudiant        }      </button>      @if (loadSubmitted && loadError) {        <div class="alert alert-danger mt-3">Étudiant introuvable.</div>      }    </form>    @if (etudiantLoaded) {      <hr>      <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">        <div class="form-group">          <label>Prénom</label>          <input            type="text"            formControlName="firstName"            class="form-control"            [ngClass]="{ \'is-invalid\': updateSubmitted && updateFormControls[\'firstName\'].errors }"          />          @if (updateSubmitted && updateFormControls[\'firstName\'].errors) {            <div class="invalid-feedback">              @if (updateFormControls[\'firstName\'].errors?.[\'required\']) {                <div>Le prénom est requis</div>              }            </div>          }        </div>        <div class="form-group">          <label>Nom</label>          <input            type="text"            formControlName="lastName"            class="form-control"            [ngClass]="{ \'is-invalid\': updateSubmitted && updateFormControls[\'lastName\'].errors }"          />          @if (updateSubmitted && updateFormControls[\'lastName\'].errors) {            <div class="invalid-feedback">              @if (updateFormControls[\'lastName\'].errors?.[\'required\']) {                <div>Le nom est requis</div>              }            </div>          }        </div>        <div class="form-group">          <label>Email</label>          <input            type="email"            formControlName="email"            class="form-control"            [ngClass]="{ \'is-invalid\': updateSubmitted && updateFormControls[\'email\'].errors }"          />          @if (updateSubmitted && updateFormControls[\'email\'].errors) {            <div class="invalid-feedback">              @if (updateFormControls[\'email\'].errors?.[\'required\']) {                <div>L\'email est requis</div>              }              @if (updateFormControls[\'email\'].errors?.[\'email\']) {                <div>L\'email doit être valide</div>              }            </div>          }        </div>        <div class="text-center">          <button class="btn btn-primary mr-1" type="submit" [disabled]="isSubmitting">            @if (isSubmitting) {              Modification...            } @else {              Enregistrer            }          </button>        </div>        @if (updateSubmitted && updateStatus === \'error\') {          <div class="alert alert-danger mt-3" [matTooltip]="updateTooltip" matTooltipClass="status-tooltip-multiline" matTooltipPosition="above">La modification a échoué.</div>        }        @if (updateStatus === \'success\') {          <div class="alert alert-success mt-3" [matTooltip]="updateTooltip" matTooltipClass="status-tooltip-multiline" matTooltipPosition="above">Étudiant modifié avec succès.</div>        }      </form>    }    <div class="text-center mt-3">      <a routerLink="/etudiants" class="btn btn-secondary mr-1">Retour au menu</a>      <button class="btn btn-secondary" type="button" (click)="logout()">Déconnexion</button>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'EtudiantCreateComponent', 'selector': 'app-etudiant-create'},{'name': 'EtudiantDeleteComponent', 'selector': 'app-etudiant-delete'},{'name': 'EtudiantDetailComponent', 'selector': 'app-etudiant-detail'},{'name': 'EtudiantListComponent', 'selector': 'app-etudiant-list'},{'name': 'EtudiantMenuComponent', 'selector': 'app-etudiant-menu'},{'name': 'EtudiantUpdateComponent', 'selector': 'app-etudiant-update'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'RegisterComponent', 'selector': 'app-register'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'EtudiantUpdateComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'EtudiantUpdateComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

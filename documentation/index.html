@@ -1,0 +1,732 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>etudiant-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="./" class="navbar-brand">etudiant-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content readme">
+                   <div class="content-data">
+
+
+<h1>EtudiantFrontend</h1>
+<p align="center">
+    <img src="https://img.shields.io/badge/Angular-19.2-red">
+    <img src="https://img.shields.io/badge/Angular--Material-19.2-red">
+    <img src="https://img.shields.io/badge/RxJS-7.8-blueviolet">
+    <img src="https://img.shields.io/badge/Jest-29.7-brightgreen">
+    <img src="https://img.shields.io/badge/Cypress-15.21-brightgreen">
+    <img src="https://img.shields.io/badge/license-Unspecified-lightgrey">
+</p>
+
+<p>Application front-end <strong>Angular</strong> de gestion des étudiants (authentification et CRUD étudiants), consommant une API REST backend.</p>
+<p>This project was generated using <a href="https://github.com/angular/angular-cli">Angular CLI</a> version 19.2.16.</p>
+<hr>
+<h2>📋 Sommaire</h2>
+<ul>
+<li><a href="#-architecture-g%C3%A9n%C3%A9rale">📐 Architecture générale</a></li>
+<li><a href="#%EF%B8%8F-stack-technique">⚙️ Stack technique</a></li>
+<li><a href="#%EF%B8%8F-pages--fonctionnalit%C3%A9s">🖥️ Pages &amp; fonctionnalités</a></li>
+<li><a href="#-consommation-de-lapi-backend">🔌 Consommation de l&#39;API backend</a></li>
+<li><a href="#-infobulles-de-statut-succ%C3%A8s--erreur">💬 Infobulles de statut (succès / erreur)</a></li>
+<li><a href="#-authentification">🔐 Authentification</a></li>
+<li><a href="#-installation--lancement">🚀 Installation &amp; lancement</a></li>
+<li><a href="#-tests">🧪 Tests</a></li>
+<li><a href="#-documentation-du-code">📖 Documentation du code</a></li>
+<li><a href="#-tableau-des-d%C3%A9pendances-importantes">📦 Tableau des dépendances importantes</a></li>
+<li><a href="#-code-scaffolding">🛠️ Code scaffolding</a></li>
+<li><a href="#-ressources-compl%C3%A9mentaires">📚 Ressources complémentaires</a></li>
+</ul>
+<hr>
+<h2>📐 Architecture générale</h2>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-none">EtudiantFrontend/
+├── src/
+│   ├── app/
+│   │   ├── core/
+│   │   │   ├── models/       # Interfaces TS (Etudiant, Login, Register, LoginResponse)
+│   │   │   └── service/      # Services Angular (AuthService, UserService, EtudiantService, ...)
+│   │   ├── pages/
+│   │   │   ├── login/                # Connexion
+│   │   │   ├── register/             # Inscription
+│   │   │   ├── etudiant-menu/        # Menu de navigation étudiants
+│   │   │   ├── etudiant-list/        # Liste des étudiants
+│   │   │   ├── etudiant-detail/      # Détail d&#39;un étudiant
+│   │   │   ├── etudiant-create/      # Création d&#39;un étudiant
+│   │   │   ├── etudiant-update/      # Modification d&#39;un étudiant
+│   │   │   └── etudiant-delete/      # Suppression d&#39;un étudiant
+│   │   ├── shared/
+│   │   │   ├── material.module.ts    # Regroupement des modules Angular Material
+│   │   │   └── utils/
+│   │   │       └── http-status.util.ts  # Libellé humain d&#39;un code HTTP (200 → &quot;OK&quot;, 409 → &quot;Conflict&quot;, ...)
+│   │   ├── app.routes.ts             # Table de routage
+│   │   └── app.config.ts             # Configuration de l&#39;application (providers)
+│   └── ...
+├── cypress/
+│   └── e2e/                          # Tests end-to-end Cypress
+├── proxy.conf.json                   # Proxy /api vers le backend (dev)
+└── package.json</code></pre></div><hr>
+<h2>⚙️ Stack technique</h2>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Couche</th>
+<th>Technologie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Framework</td>
+<td>Angular 19 (standalone components)</td>
+</tr>
+<tr>
+<td>UI</td>
+<td>Angular Material 19 + Angular CDK</td>
+</tr>
+<tr>
+<td>Réactivité</td>
+<td>RxJS 7.8</td>
+</tr>
+<tr>
+<td>Tests unitaires</td>
+<td>Jest 29 (<code>jest-preset-angular</code>)</td>
+</tr>
+<tr>
+<td>Tests e2e / composants</td>
+<td>Cypress 15</td>
+</tr>
+<tr>
+<td>Documentation</td>
+<td>Compodoc</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>🖥️ Pages &amp; fonctionnalités</h2>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Page</th>
+<th>Route</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Login</td>
+<td><code>/login</code></td>
+<td>Connexion utilisateur</td>
+</tr>
+<tr>
+<td>Register</td>
+<td><code>/register</code></td>
+<td>Création de compte</td>
+</tr>
+<tr>
+<td>Menu étudiants</td>
+<td><code>/etudiants</code></td>
+<td>Point d&#39;entrée de la gestion des étudiants</td>
+</tr>
+<tr>
+<td>Liste étudiants</td>
+<td><code>/etudiants/liste</code></td>
+<td>Affiche tous les étudiants</td>
+</tr>
+<tr>
+<td>Détail étudiant</td>
+<td><code>/etudiants/detail</code></td>
+<td>Affiche un étudiant</td>
+</tr>
+<tr>
+<td>Créer étudiant</td>
+<td><code>/etudiants/creer</code></td>
+<td>Formulaire de création</td>
+</tr>
+<tr>
+<td>Modifier étudiant</td>
+<td><code>/etudiants/modifier</code></td>
+<td>Formulaire de modification</td>
+</tr>
+<tr>
+<td>Supprimer étudiant</td>
+<td><code>/etudiants/supprimer</code></td>
+<td>Suppression d&#39;un étudiant</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>🔌 Consommation de l&#39;API backend</h2>
+<p>En développement, les appels <code>/api/*</code> sont redirigés vers le backend via <code>proxy.conf.json</code> (<code>ng serve --proxy-config proxy.conf.json</code>, cible par défaut <code>http://localhost:8080</code>).</p>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Route</th>
+<th>Service</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td><code>/api/login</code></td>
+<td><code>UserService.login</code></td>
+<td>Authentifie l&#39;utilisateur, retourne un token</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/api/register</code></td>
+<td><code>UserService.register</code></td>
+<td>Crée un nouvel utilisateur</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/etudiants</code></td>
+<td><code>EtudiantService.getAll</code></td>
+<td>Liste tous les étudiants</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/etudiants/:id</code></td>
+<td><code>EtudiantService.getById</code></td>
+<td>Récupère un étudiant par ID</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/api/etudiants</code></td>
+<td><code>EtudiantService.create</code></td>
+<td>Crée un étudiant</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td><code>/api/etudiants/:id</code></td>
+<td><code>EtudiantService.update</code></td>
+<td>Modifie un étudiant</td>
+</tr>
+<tr>
+<td><code>DELETE</code></td>
+<td><code>/api/etudiants/:id</code></td>
+<td><code>EtudiantService.delete</code></td>
+<td>Supprime un étudiant</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>💬 Infobulles de statut (succès / erreur)</h2>
+<p>Sur les formulaires <strong>Créer</strong>, <strong>Modifier</strong> et <strong>Supprimer</strong> un étudiant, le message de résultat (encadré vert = succès, encadré rouge = échec) affiche une <strong>infobulle au survol de la souris</strong>. Le but : rendre le résultat de l&#39;action compréhensible même pour un lecteur qui ne connaît pas les codes HTTP — un <code>200</code> ou un <code>204</code> tout seul ne veut rien dire pour tout le monde.</p>
+<p>L&#39;infobulle affiche :</p>
+<ul>
+<li><strong>En cas de succès</strong> : le code HTTP et son libellé standard (ex. <code>201 Created</code>). Quand le libellé seul ne suffit pas à comprendre qu&#39;il s&#39;agit d&#39;une réussite (ex. <code>204 No Content</code> après une suppression), la mention <code>(OK)</code> est ajoutée à la fin.</li>
+<li><strong>En cas d&#39;erreur</strong> : le code HTTP et son libellé standard, puis sur la ligne suivante le message d&#39;erreur exact renvoyé par le backend (ex. <code>Un étudiant avec l&#39;email john.doe8@gmail.com existe déjà</code>).</li>
+</ul>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Code</th>
+<th>Libellé HTTP</th>
+<th>Ce que ça signifie concrètement</th>
+<th>Où on peut le voir</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>200 OK</code></td>
+<td>OK</td>
+<td>La modification a bien été enregistrée.</td>
+<td>Modifier (succès)</td>
+</tr>
+<tr>
+<td><code>201 Created</code></td>
+<td>Created</td>
+<td>L&#39;étudiant a bien été créé.</td>
+<td>Créer (succès)</td>
+</tr>
+<tr>
+<td><code>204 No Content</code></td>
+<td>No Content (OK)</td>
+<td>La suppression a réussi. Le serveur ne renvoie aucune donnée en retour, c&#39;est normal pour une suppression.</td>
+<td>Supprimer (succès)</td>
+</tr>
+<tr>
+<td><code>400 Bad Request</code></td>
+<td>Bad Request</td>
+<td>Les données envoyées sont invalides ou incomplètes.</td>
+<td>Créer, Modifier, Supprimer (erreur)</td>
+</tr>
+<tr>
+<td><code>401 Unauthorized</code></td>
+<td>Unauthorized</td>
+<td>La session n&#39;est plus valide, une reconnexion est nécessaire.</td>
+<td>Créer, Modifier, Supprimer (erreur)</td>
+</tr>
+<tr>
+<td><code>403 Forbidden</code></td>
+<td>Forbidden</td>
+<td>L&#39;action n&#39;est pas autorisée pour cet utilisateur.</td>
+<td>Créer, Modifier, Supprimer (erreur)</td>
+</tr>
+<tr>
+<td><code>404 Not Found</code></td>
+<td>Not Found</td>
+<td>L&#39;étudiant demandé n&#39;existe pas (identifiant inconnu ou déjà supprimé).</td>
+<td>Modifier, Supprimer (erreur)</td>
+</tr>
+<tr>
+<td><code>409 Conflict</code></td>
+<td>Conflict</td>
+<td>Un étudiant avec les mêmes informations (ex. email) existe déjà.</td>
+<td>Créer, Modifier (erreur)</td>
+</tr>
+<tr>
+<td><code>500 Internal Server Error</code></td>
+<td>Internal Server Error</td>
+<td>Une erreur imprévue est survenue côté serveur.</td>
+<td>Créer, Modifier, Supprimer (erreur)</td>
+</tr>
+</tbody>
+</table>
+<p>Ce mapping code → libellé est calculé côté frontend dans <a href="src/app/shared/utils/http-status.util.ts"><code>shared/utils/http-status.util.ts</code></a>, plutôt que de dépendre du <code>statusText</code> renvoyé par le navigateur (non garanti selon les environnements).</p>
+<blockquote>
+<p><strong>Détail</strong> et <strong>Liste</strong> n&#39;affichent pas cette infobulle : sur ces deux pages, le backend ne renvoie aucun message exploitable en cas d&#39;erreur (corps de réponse vide sur 404/401/500), donc afficher uniquement un code sans explication n&#39;apporterait pas d&#39;information utile.</p>
+</blockquote>
+<hr>
+<h2>🔐 Authentification</h2>
+<ul>
+<li>Le token retourné par <code>/api/login</code> est conservé côté client dans le <code>sessionStorage</code> (<code>AuthService</code>, clé <code>authToken</code>).</li>
+<li><code>AuthService.isLoggedIn()</code> permet de vérifier la présence du token pour protéger les routes.</li>
+<li>Un intercepteur HTTP fonctionnel (<code>authInterceptor</code>, <code>core/interceptors/auth.interceptor.ts</code>) rattache automatiquement le token en en-tête <code>Authorization: Bearer &lt;token&gt;</code> sur chaque requête sortante, tant qu&#39;un token est présent en session.</li>
+</ul>
+<hr>
+<h2>🚀 Installation &amp; lancement</h2>
+<h3>Prérequis</h3>
+<ul>
+<li>Node.js (compatible Angular CLI 19)</li>
+<li>Un backend exposant les routes <code>/api/*</code> décrites ci-dessus (par défaut attendu sur <code>http://localhost:8080</code>)</li>
+</ul>
+<h3>Développement</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm install
+npm start</code></pre></div><p>Ouvrez ensuite <code>http://localhost:4200/</code>. L&#39;application se recharge automatiquement à chaque modification des sources, et les appels <code>/api</code> sont proxyfiés vers le backend.</p>
+<h3>Production</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm run build</code></pre></div><p>Les artefacts compilés sont générés dans <code>dist/</code>.</p>
+<hr>
+<h2>🧪 Tests</h2>
+<p>Point d&#39;entrée unique vers tous les rapports générés localement : <a href="RAPPORTS-TESTS.html">RAPPORTS-TESTS.html</a> (même principe et même gabarit visuel que le point d&#39;entrée du backend). Régénéré automatiquement avec les chiffres réels du dernier run — <code>npm run test</code> (via le script <code>posttest</code>, une fois <code>coverage/coverage-summary.json</code> réellement écrit) et <code>npm run cypress:run</code> / une spec lancée depuis <code>npm run cypress:open</code> (via <code>after:run</code> dans <a href="test-report-support/cypress-report.ts">cypress-report.ts</a>) — voir <a href="test-report-support/generate-entry-point.js">generate-entry-point.js</a>.</p>
+<h3>Tests unitaires (Jest)</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm run test          # exécution unique
+npm run test:watch    # mode watch</code></pre></div><table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Fichier</th>
+<th>Catégorie</th>
+<th>Couvre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="src/app/app.component.spec.ts">app.component.spec.ts</a></td>
+<td>Unitaire</td>
+<td>Création du composant racine et valeur du titre de l&#39;application</td>
+</tr>
+<tr>
+<td><a href="src/app/core/service/auth.service.spec.ts">core/service/auth.service.spec.ts</a></td>
+<td>Unitaire</td>
+<td><code>setToken</code>/<code>getToken</code>/<code>isLoggedIn</code>/<code>logout</code> (sessionStorage)</td>
+</tr>
+<tr>
+<td><a href="src/app/core/service/etudiant.service.spec.ts">core/service/etudiant.service.spec.ts</a></td>
+<td>Unitaire</td>
+<td><code>getAll</code>/<code>getById</code>/<code>create</code>/<code>update</code>/<code>delete</code> via <code>HttpTestingController</code></td>
+</tr>
+<tr>
+<td><a href="src/app/core/service/user.service.spec.ts">core/service/user.service.spec.ts</a></td>
+<td>Unitaire</td>
+<td><code>register</code>/<code>login</code> via <code>HttpTestingController</code></td>
+</tr>
+<tr>
+<td><a href="src/app/core/service/user-mock.service.spec.ts">core/service/user-mock.service.spec.ts</a></td>
+<td>Unitaire</td>
+<td><code>register</code>/<code>login</code> renvoient bien un <code>Observable</code></td>
+</tr>
+<tr>
+<td><a href="src/app/core/interceptors/auth.interceptor.spec.ts">core/interceptors/auth.interceptor.spec.ts</a></td>
+<td>Intégration</td>
+<td>En-tête <code>Authorization</code> ajouté si token présent, absent sinon</td>
+</tr>
+<tr>
+<td><a href="src/app/pages/login/login.component.spec.ts">pages/login/login.component.spec.ts</a></td>
+<td>Intégration</td>
+<td>Formulaire invalide / succès (token stocké + navigation) / erreur / reset</td>
+</tr>
+<tr>
+<td><a href="src/app/pages/register/register.component.spec.ts">pages/register/register.component.spec.ts</a></td>
+<td>Intégration</td>
+<td>Formulaire invalide / appel <code>register</code> réussi / reset</td>
+</tr>
+<tr>
+<td><a href="src/app/pages/etudiant-menu/etudiant-menu.component.spec.ts">pages/etudiant-menu/etudiant-menu.component.spec.ts</a></td>
+<td>Intégration</td>
+<td>Actions exposées + déconnexion</td>
+</tr>
+<tr>
+<td><a href="src/app/pages/etudiant-list/etudiant-list.component.spec.ts">pages/etudiant-list/etudiant-list.component.spec.ts</a></td>
+<td>Intégration</td>
+<td>Chargement succès/erreur + déconnexion</td>
+</tr>
+<tr>
+<td><a href="src/app/pages/etudiant-detail/etudiant-detail.component.spec.ts">pages/etudiant-detail/etudiant-detail.component.spec.ts</a></td>
+<td>Intégration</td>
+<td>Recherche invalide/succès/erreur + déconnexion</td>
+</tr>
+<tr>
+<td><a href="src/app/pages/etudiant-create/etudiant-create.component.spec.ts">pages/etudiant-create/etudiant-create.component.spec.ts</a></td>
+<td>Intégration</td>
+<td>Création invalide/succès/erreur/reset + déconnexion</td>
+</tr>
+<tr>
+<td><a href="src/app/pages/etudiant-update/etudiant-update.component.spec.ts">pages/etudiant-update/etudiant-update.component.spec.ts</a></td>
+<td>Intégration</td>
+<td>Chargement + mise à jour invalide/succès/erreur + déconnexion</td>
+</tr>
+<tr>
+<td><a href="src/app/pages/etudiant-delete/etudiant-delete.component.spec.ts">pages/etudiant-delete/etudiant-delete.component.spec.ts</a></td>
+<td>Intégration</td>
+<td>Suppression invalide/succès/erreur + déconnexion</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Couverture de code : 100 % (statements/branches/fonctions/lignes) sur <code>src/app/**/*.ts</code> (hors modèles et fichiers de config <code>app.config.ts</code>/<code>app.routes.ts</code>, exclus de la mesure faute de logique à tester).</p>
+</blockquote>
+<p>Chaque exécution (<code>npm run test</code>, <code>npm run test:watch</code>) génère/actualise un rapport HTML consultable à tout moment : <strong><code>test-report/rapport-tests-unit.html</code></strong>. Règle de mise à jour (même principe que le rapport de tests du backend) :</p>
+<ul>
+<li>run couvrant <strong>plusieurs fichiers</strong> <code>*.spec.ts</code> (campagne complète) → le rapport est <strong>réinitialisé</strong> puis reconstruit ;</li>
+<li>run ciblé sur <strong>un seul fichier</strong> → l&#39;historique est conservé, seules les lignes des tests exécutés sont <strong>mises à jour</strong>.</li>
+</ul>
+<p>Le rapport inclut une colonne <strong>Catégorie</strong>, déduite automatiquement du chemin du fichier de test (voir <code>categoryFor</code> dans <a href="test-report-support/jest-report-reporter.js">jest-report-reporter.js</a>) :</p>
+<ul>
+<li><strong>Unitaire</strong> : une seule classe testée (service, composant racine), dépendances absentes ou mockées (HTTP simulé via <code>HttpTestingController</code>).</li>
+<li><strong>Intégration</strong> : composant Angular orchestré avec de vrais collaborateurs (Router, AuthService) via <code>TestBed</code>, ou intercepteur testé avec le vrai pipeline <code>HttpClient</code>.</li>
+</ul>
+<h3>Tests end-to-end &amp; composants (Cypress)</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm run cypress:open  # interface interactive
+npm run cypress:run   # exécution headless (CI)</code></pre></div><ul>
+<li>Les tests e2e se trouvent dans <code>cypress/e2e/</code> (baseUrl <code>http://localhost:4200</code>).</li>
+<li>Les tests de composants (<code>*.cy.ts</code> à côté de chaque page) utilisent le devServer Angular/Webpack.</li>
+</ul>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Fichier</th>
+<th>Catégorie</th>
+<th>Couvre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="cypress/e2e/nrg_e2e.cy.ts">cypress/e2e/nrg_e2e.cy.ts</a></td>
+<td>E2E</td>
+<td>Gabarit généré par défaut : visite <code>/login</code> (aucun scénario métier encore écrit)</td>
+</tr>
+<tr>
+<td><a href="src/app/pages/etudiant-menu/etudiant-menu.component.cy.ts">pages/etudiant-menu/etudiant-menu.component.cy.ts</a></td>
+<td>Fonctionnel</td>
+<td><code>EtudiantMenuComponent</code> se monte sans erreur</td>
+</tr>
+<tr>
+<td><a href="src/app/pages/etudiant-list/etudiant-list.component.cy.ts">pages/etudiant-list/etudiant-list.component.cy.ts</a></td>
+<td>Fonctionnel</td>
+<td><code>EtudiantListComponent</code> se monte sans erreur</td>
+</tr>
+<tr>
+<td><a href="src/app/pages/etudiant-detail/etudiant-detail.component.cy.ts">pages/etudiant-detail/etudiant-detail.component.cy.ts</a></td>
+<td>Fonctionnel</td>
+<td><code>EtudiantDetailComponent</code> se monte sans erreur</td>
+</tr>
+<tr>
+<td><a href="src/app/pages/etudiant-create/etudiant-create.component.cy.ts">pages/etudiant-create/etudiant-create.component.cy.ts</a></td>
+<td>Fonctionnel</td>
+<td><code>EtudiantCreateComponent</code> se monte sans erreur</td>
+</tr>
+<tr>
+<td><a href="src/app/pages/etudiant-update/etudiant-update.component.cy.ts">pages/etudiant-update/etudiant-update.component.cy.ts</a></td>
+<td>Fonctionnel</td>
+<td><code>EtudiantUpdateComponent</code> se monte sans erreur</td>
+</tr>
+<tr>
+<td><a href="src/app/pages/etudiant-delete/etudiant-delete.component.cy.ts">pages/etudiant-delete/etudiant-delete.component.cy.ts</a></td>
+<td>Fonctionnel</td>
+<td><code>EtudiantDeleteComponent</code> se monte sans erreur</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Les tests de composants restent des smoke tests (« le composant se monte »), pas encore des scénarios utilisateur complets. Le test e2e est un gabarit sans assertion métier.</p>
+</blockquote>
+<p>Chaque exécution (<code>npm run cypress:run</code>, ou une spec lancée depuis <code>npm run cypress:open</code>) génère/actualise <strong><code>test-report/rapport-tests-cypress.html</code></strong>, avec la même règle reset/update que le rapport Jest : plusieurs specs prévues → réinitialisation ; une seule spec (ou un test filtré via <code>.only</code>) → seules ses lignes sont mises à jour.</p>
+<p>Ce rapport inclut aussi une colonne <strong>Catégorie</strong> (voir <code>categoryFor</code> dans <a href="test-report-support/cypress-report.ts">cypress-report.ts</a>) :</p>
+<ul>
+<li><strong>Fonctionnel</strong> : rendu réel du composant dans un navigateur (Cypress Component Testing).</li>
+<li><strong>E2E</strong> : navigation dans un vrai navigateur contre l&#39;application démarrée (<code>cypress/e2e/</code>).</li>
+</ul>
+<hr>
+<h2>📖 Documentation du code</h2>
+<p>La documentation technique du code est générée avec <a href="https://compodoc.app/">Compodoc</a> :</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm run compodoc              # génère la documentation statique
+npm run compodoc:serve        # génère et sert la documentation
+npm run compodoc:serve:watch  # génère, sert et régénère à chaque changement</code></pre></div><hr>
+<h2>📦 Tableau des dépendances importantes</h2>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Package</th>
+<th>Version</th>
+<th>Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@angular/core</code></td>
+<td>^19.2.0</td>
+<td>Framework Angular</td>
+</tr>
+<tr>
+<td><code>@angular/router</code></td>
+<td>^19.2.0</td>
+<td>Routage SPA</td>
+</tr>
+<tr>
+<td><code>@angular/forms</code></td>
+<td>^19.2.0</td>
+<td>Formulaires réactifs/template-driven</td>
+</tr>
+<tr>
+<td><code>@angular/material</code></td>
+<td>^19.2.19</td>
+<td>Composants UI Material Design</td>
+</tr>
+<tr>
+<td><code>@angular/cdk</code></td>
+<td>^19.2.19</td>
+<td>Primitives UI (Component Dev Kit)</td>
+</tr>
+<tr>
+<td><code>rxjs</code></td>
+<td>~7.8.0</td>
+<td>Programmation réactive</td>
+</tr>
+<tr>
+<td><code>jest</code></td>
+<td>^29.7.0</td>
+<td>Test runner unitaire (dev)</td>
+</tr>
+<tr>
+<td><code>jest-preset-angular</code></td>
+<td>^14.5.1</td>
+<td>Intégration Jest / Angular (dev)</td>
+</tr>
+<tr>
+<td><code>cypress</code></td>
+<td>15.21.0</td>
+<td>Tests e2e et composants (dev)</td>
+</tr>
+<tr>
+<td><code>@cypress/schematic</code></td>
+<td>^4.3.0</td>
+<td>Intégration Cypress / Angular CLI (dev)</td>
+</tr>
+<tr>
+<td><code>@compodoc/compodoc</code></td>
+<td>—</td>
+<td>Génération de documentation (dev, via npx)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>🛠️ Code scaffolding</h2>
+<p>Angular CLI includes powerful code scaffolding tools. To generate a new component, run:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">ng generate component component-name</code></pre></div><p>For a complete list of available schematics (such as <code>components</code>, <code>directives</code>, or <code>pipes</code>), run:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">ng generate --help</code></pre></div><hr>
+<h2>📚 Ressources complémentaires</h2>
+<p>For more information on using the Angular CLI, including detailed command references, visit the <a href="https://angular.dev/tools/cli">Angular CLI Overview and Command Reference</a> page.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'readme';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+
+       <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

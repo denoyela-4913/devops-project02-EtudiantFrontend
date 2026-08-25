@@ -1,11 +1,15 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { MaterialModule } from '../../shared/material.module';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EtudiantService } from '../../core/service/etudiant.service';
 import { AuthService } from '../../core/service/auth.service';
+import { getHttpStatusText } from '../../shared/utils/http-status.util';
+
+const DELETE_SUCCESS_STATUS = 204;
 
 @Component({
   selector: 'app-etudiant-delete',
@@ -13,6 +17,7 @@ import { AuthService } from '../../core/service/auth.service';
   templateUrl: './etudiant-delete.component.html',
   styleUrl: './etudiant-delete.component.css'
 })
+/** Supprime un étudiant par identifiant ; aucune confirmation préalable n'est demandée à l'utilisateur. */
 export class EtudiantDeleteComponent implements OnInit {
   private etudiantService = inject(EtudiantService);
   private authService = inject(AuthService);
@@ -24,6 +29,7 @@ export class EtudiantDeleteComponent implements OnInit {
   submitted: boolean = false;
   isSubmitting: boolean = false;
   deleteStatus: 'idle' | 'success' | 'error' = 'idle';
+  deleteResult: { status: number; message?: string; success: boolean } | null = null;
 
   ngOnInit(): void {
     this.deleteForm = this.formBuilder.group({
@@ -35,9 +41,21 @@ export class EtudiantDeleteComponent implements OnInit {
     return this.deleteForm.controls;
   }
 
+  /** Texte du tooltip : code + libellé HTTP, et message d'erreur du backend en cas d'échec. */
+  get deleteTooltip(): string {
+    if (!this.deleteResult) {
+      return '';
+    }
+    const statusLine = `${this.deleteResult.status} ${getHttpStatusText(this.deleteResult.status)}`;
+    return this.deleteResult.success
+      ? `${statusLine} (OK)`
+      : `${statusLine}\n${this.deleteResult.message}`;
+  }
+
   onSubmit(): void {
     this.submitted = true;
     this.deleteStatus = 'idle';
+    this.deleteResult = null;
 
     if (this.deleteForm.invalid) {
       return;
@@ -51,12 +69,18 @@ export class EtudiantDeleteComponent implements OnInit {
       .subscribe({
         next: () => {
           this.deleteStatus = 'success';
+          this.deleteResult = { status: DELETE_SUCCESS_STATUS, success: true };
           this.isSubmitting = false;
           this.deleteForm.reset();
           this.submitted = false;
         },
-        error: () => {
+        error: (err: HttpErrorResponse) => {
           this.deleteStatus = 'error';
+          this.deleteResult = {
+            status: err.status,
+            message: err.error?.message ?? 'Erreur inconnue.',
+            success: false
+          };
           this.isSubmitting = false;
         }
       });

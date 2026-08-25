@@ -8,10 +8,12 @@ import { AuthService } from '../../core/service/auth.service';
   templateUrl: './etudiant-menu.component.html',
   styleUrl: './etudiant-menu.component.css'
 })
+/** Page d'accueil post-connexion : hub de navigation vers les opérations CRUD sur les étudiants. */
 export class EtudiantMenuComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
 
+  /** Liste affichée dans le menu ; ajouter une entrée ici suffit pour l'exposer (route à créer séparément dans `app.routes.ts`). */
   actions = [
     { label: 'Liste des étudiants', path: '/etudiants/liste' },
     { label: 'Détails d\'un étudiant', path: '/etudiants/detail' },

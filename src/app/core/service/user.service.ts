@@ -5,6 +5,7 @@ import { LoginResponse } from '../models/LoginResponse';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+/** Appels HTTP liés au compte utilisateur : inscription et authentification. */
 @Injectable({
   providedIn: 'root'
 })

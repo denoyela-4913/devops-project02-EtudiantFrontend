@@ -9,6 +9,7 @@ import { RouterOutlet } from '@angular/router';
   ],
   styleUrl: './app.component.css'
 })
+/** Coquille racine : ne fait qu'héberger le `<router-outlet>`, toute la logique vit dans les pages routées. */
 export class AppComponent {
   title = 'etudiant-frontend';
 }

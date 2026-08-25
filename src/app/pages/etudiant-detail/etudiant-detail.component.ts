@@ -14,6 +14,7 @@ import { Etudiant } from '../../core/models/Etudiant';
   templateUrl: './etudiant-detail.component.html',
   styleUrl: './etudiant-detail.component.css'
 })
+/** Recherche un étudiant par identifiant et affiche ses détails, ou une erreur si non trouvé. */
 export class EtudiantDetailComponent implements OnInit {
   private etudiantService = inject(EtudiantService);
   private authService = inject(AuthService);

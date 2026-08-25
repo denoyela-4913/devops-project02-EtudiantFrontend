@@ -15,6 +15,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
   styleUrl: './login.component.css'
 })
+/** Authentifie l'utilisateur, stocke le JWT reçu via `AuthService`, puis redirige vers `/etudiants`. */
 export class LoginComponent implements OnInit {
   private userService = inject(UserService);
   private authService = inject(AuthService);
