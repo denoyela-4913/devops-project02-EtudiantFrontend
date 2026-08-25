@@ -1,12 +1,16 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { MaterialModule } from '../../shared/material.module';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EtudiantService } from '../../core/service/etudiant.service';
 import { AuthService } from '../../core/service/auth.service';
 import { Etudiant } from '../../core/models/Etudiant';
+import { getHttpStatusText } from '../../shared/utils/http-status.util';
+
+const UPDATE_SUCCESS_STATUS = 200;
 
 @Component({
   selector: 'app-etudiant-update',
@@ -29,6 +33,7 @@ export class EtudiantUpdateComponent implements OnInit {
   loadError: boolean = false;
   isSubmitting: boolean = false;
   updateStatus: 'idle' | 'success' | 'error' = 'idle';
+  updateResult: { status: number; message?: string; success: boolean } | null = null;
   etudiantLoaded: boolean = false;
 
   ngOnInit(): void {
@@ -78,9 +83,20 @@ export class EtudiantUpdateComponent implements OnInit {
       });
   }
 
+  get updateTooltip(): string {
+    if (!this.updateResult) {
+      return '';
+    }
+    const statusLine = `${this.updateResult.status} ${getHttpStatusText(this.updateResult.status)}`;
+    return this.updateResult.success
+      ? statusLine
+      : `${statusLine}\n${this.updateResult.message}`;
+  }
+
   onUpdate(): void {
     this.updateSubmitted = true;
     this.updateStatus = 'idle';
+    this.updateResult = null;
 
     if (this.updateForm.invalid) {
       return;
@@ -99,10 +115,16 @@ export class EtudiantUpdateComponent implements OnInit {
       .subscribe({
         next: () => {
           this.updateStatus = 'success';
+          this.updateResult = { status: UPDATE_SUCCESS_STATUS, success: true };
           this.isSubmitting = false;
         },
-        error: () => {
+        error: (err: HttpErrorResponse) => {
           this.updateStatus = 'error';
+          this.updateResult = {
+            status: err.status,
+            message: err.error?.message ?? 'Erreur inconnue.',
+            success: false
+          };
           this.isSubmitting = false;
         }
       });

@@ -99,11 +99,11 @@
         </div>
 
         @if (updateSubmitted && updateStatus === 'error') {
-          <div class="alert alert-danger mt-3">La modification a échoué.</div>
+          <div class="alert alert-danger mt-3" [matTooltip]="updateTooltip" matTooltipClass="status-tooltip-multiline" matTooltipPosition="above">La modification a échoué.</div>
         }
 
         @if (updateStatus === 'success') {
-          <div class="alert alert-success mt-3">Étudiant modifié avec succès.</div>
+          <div class="alert alert-success mt-3" [matTooltip]="updateTooltip" matTooltipClass="status-tooltip-multiline" matTooltipPosition="above">Étudiant modifié avec succès.</div>
         }
       </form>
     }
