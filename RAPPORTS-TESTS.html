@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Rapports — etudiant-frontend</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --page: #f3f4f8; --surface: #ffffff; --border: rgba(20,22,28,0.10);
+    --text-1: #14161c; --text-2: #565a66; --text-3: #8a8e99;
+    --accent-ink: #322a9e; --accent-soft: #e8e6fb;
+    --font-display: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --page: #0d0e12; --surface: #15161d; --border: rgba(255,255,255,0.10);
+      --text-1: #f2f2f6; --text-2: #b7bac4; --text-3: #7d8090;
+      --accent-ink: #c2c0f8; --accent-soft: rgba(143,139,242,0.16);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #0d0e12; --surface: #15161d; --border: rgba(255,255,255,0.10);
+    --text-1: #f2f2f6; --text-2: #b7bac4; --text-3: #7d8090;
+    --accent-ink: #c2c0f8; --accent-soft: rgba(143,139,242,0.16);
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--page); margin: 0; color: var(--text-1); font-family: var(--font-body); }
+  .root { max-width: 760px; margin: 0 auto; padding: 56px 24px 72px; }
+  .eyebrow { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent-ink); margin: 0 0 10px; }
+  h1 { font-family: var(--font-display); font-size: clamp(26px, 4vw, 34px); font-weight: 800; letter-spacing: -0.01em; margin: 0; }
+  .meta { margin-top: 12px; font-family: var(--font-mono); font-size: 13px; color: var(--text-3); }
+  .cards { display: grid; gap: 14px; margin-top: 36px; }
+  a.card { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; text-decoration: none; color: inherit; transition: border-color 0.12s ease, transform 0.12s ease; }
+  a.card:hover { border-color: var(--accent-ink); transform: translateY(-1px); }
+  a.card:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 2px; }
+  .card-text h2 { font-family: var(--font-display); font-size: 17px; font-weight: 700; margin: 0 0 4px; }
+  .card-text p { margin: 0; font-size: 13.5px; color: var(--text-2); line-height: 1.5; }
+  .card-stat { font-family: var(--font-mono); font-weight: 600; font-size: 15px; color: var(--accent-ink); white-space: nowrap; background: var(--accent-soft); padding: 6px 12px; border-radius: 8px; }
+  .card-arrow { color: var(--text-3); font-size: 18px; }
+  footer { margin-top: 32px; font-size: 12.5px; color: var(--text-3); line-height: 1.6; }
+  footer code { font-family: var(--font-mono); }
+</style>
+</head>
+<body>
+<div class="root">
+  <p class="eyebrow">etudiant-frontend</p>
+  <h1>Rapports de tests &amp; de couverture</h1>
+  <p class="meta">Généré le 25/08/2026 09:20 · 20 fichiers de test analysés</p>
+
+  <div class="cards">
+    <a class="card" href="test-report/rapport-tests-unit.html">
+      <div class="card-text">
+        <h2>Rapport de tests unitaires (Jest)</h2>
+        <p>Liste des tests exécutés, catégorie, statut et heure de passage. 47 intégration · 17 unitaire</p>
+      </div>
+      <span class="card-stat">64 / 64 tests OK</span>
+    </a>
+
+    <a class="card" href="test-report/rapport-tests-cypress.html">
+      <div class="card-text">
+        <h2>Rapport de tests Cypress (e2e + composants)</h2>
+        <p>Liste des tests exécutés, catégorie, statut et heure de passage. 6 fonctionnel</p>
+      </div>
+      <span class="card-stat">6 / 6 tests OK</span>
+    </a>
+
+    <a class="card" href="coverage/index.html">
+      <div class="card-text">
+        <h2>Couverture de code (Jest)</h2>
+        <p>Couverture de code Jest (lignes), rapport HTML Istanbul natif, fichier par fichier.</p>
+      </div>
+      <span class="card-stat">100,0&nbsp;%</span>
+    </a>
+  </div>
+
+  <footer>
+    Régénéré automatiquement à la racine du dépôt à chaque <code>npm run test</code> / <code>npm run cypress:run</code> — les liens ci-dessus pointent vers <code>test-report/</code> et <code>coverage/</code>, qui n'existent qu'après une exécution des tests correspondants.
+  </footer>
+</div>
+</body>
+</html>
