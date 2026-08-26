@@ -1,43 +1,29 @@
-// ***********************************************
-// This example namespace declaration will help
-// with Intellisense and code completion in your
-// IDE or Text Editor.
-// ***********************************************
-// declare namespace Cypress {
-//   interface Chainable<Subject = any> {
-//     customCommand(param: any): typeof customCommand;
-//   }
-// }
-//
-// function customCommand(param: any): void {
-//   console.warn(param);
-// }
-//
-// NOTE: You can use it like so:
-// Cypress.Commands.add('customCommand', customCommand);
-//
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+/** Construit un faux JWT (signature bidon) avec un claim `exp` dans le futur. */
+function fakeJwt(): string {
+  const base64url = (obj: object) =>
+    btoa(JSON.stringify(obj)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+  const exp = Math.floor(Date.now() / 1000) + 3600
+  return `${base64url({ alg: 'HS256' })}.${base64url({ exp })}.signature`
+}
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      /**
+       * Visite `path` avec un JWT valide déjà en `sessionStorage` avant que l'app ne démarre,
+       * pour atteindre directement les écrans protégés par `authGuard` sans repasser par /login.
+       */
+      visitAuthenticated(path: string): Chainable<Cypress.AUTWindow>
+    }
+  }
+}
+
+Cypress.Commands.add('visitAuthenticated', (path: string) => {
+  return cy.visit(path, {
+    onBeforeLoad(win) {
+      win.sessionStorage.setItem('authToken', fakeJwt())
+    }
+  })
+})
+
+export {}
