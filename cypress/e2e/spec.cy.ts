@@ -1,6 +1,7 @@
-describe('My First Test', () => {
-  it('Visits the initial project page', () => {
+describe('Initial navigation', () => {
+  it('redirects the root path to the login page', () => {
     cy.visit('/')
-    cy.contains('app is running')
+    cy.url().should('include', '/login')
+    cy.contains('Login Form')
   })
 })

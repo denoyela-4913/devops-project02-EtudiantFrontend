@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # `npm test` génère coverage/ (rapport Istanbul + coverage-summary.json), test-report/
+      # (détail des tests unitaires) et, via le script "posttest", RAPPORTS-TESTS.html à la
+      # racine — le point d'entrée qui regroupe les deux. Le fichier n'étant plus versionné
+      # (voir .gitignore), c'est ce job qui le (re)génère à chaque run, toujours à jour.
+      - run: npm test
+
+      # Démarre `ng serve` (npm start), attend qu'il réponde sur :4200, lance les specs
+      # cypress/e2e/*.cy.ts, puis arrête le serveur. Le hook `after:run` de cypress.config.ts
+      # régénère RAPPORTS-TESTS.html en y intégrant les résultats e2e à ceux de Jest
+      # (déjà écrits par le step `npm test` ci-dessus) : il faut donc que ce step reste
+      # APRÈS `npm test` et AVANT la publication de l'artefact plus bas.
+      - name: E2E (Cypress)
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start
+          wait-on: 'http://localhost:4200'
+          wait-on-timeout: 120
+          browser: electron
+          install: false
+
+      - name: Résumé de couverture
+        if: always()
+        run: |
+          node -e "
+            const s = require('./coverage/coverage-summary.json').total;
+            const line = (label, m) => \`| \${label} | \${m.pct}% | \${m.covered}/\${m.total} |\`;
+            console.log('## Couverture de code (Jest)');
+            console.log('| Metrique | % | Couvert |');
+            console.log('|---|---|---|');
+            console.log(line('Lignes', s.lines));
+            console.log(line('Statements', s.statements));
+            console.log(line('Fonctions', s.functions));
+            console.log(line('Branches', s.branches));
+          " >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publier le rapport de tests
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rapports-tests
+          path: |
+            RAPPORTS-TESTS.html
+            coverage/
+            test-report/
+          retention-days: 30
+
+      - name: Captures d'écran Cypress (en cas d'échec)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots/
+          retention-days: 30
+          if-no-files-found: ignore
