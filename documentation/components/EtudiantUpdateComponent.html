@@ -138,6 +138,16 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Modification d&#39;un étudiant en deux étapes distinctes, chacune avec son propre formulaire :
+<code>loadForm</code> (saisie de l&#39;id) charge l&#39;étudiant via <code>onLoad</code>, puis <code>updateForm</code> (pré-rempli)
+envoie les changements via <code>onUpdate</code>. Toujours possible de recharger un autre id sans
+recharger la page.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -350,14 +360,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="142"
-                                    class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:142</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="147"
+                                    class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:147</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Déconnecte l&#39;utilisateur et revient à <code>/login</code>.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -387,14 +399,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="45"
-                                    class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:45</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:47</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Initialise les deux formulaires (recherche par id, puis édition des champs).</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -424,8 +438,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="65"
-                                    class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:65</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="69"
+                                    class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:69</a></div>
                         </td>
                     </tr>
 
@@ -463,8 +477,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="105"
-                                    class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:105</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="109"
+                                    class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:109</a></div>
                         </td>
                     </tr>
 
@@ -576,7 +590,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:43</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:44</a></div>
                         </td>
                     </tr>
 
@@ -889,10 +903,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:42</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:43</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Issue de la dernière tentative de modification, utilisée pour l&#39;affichage et le tooltip.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -980,9 +1000,16 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:56</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:59</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Contrôles de <code>loadForm</code>, exposés pour l&#39;affichage des erreurs de validation dans le template.</p>
+</div>
+
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -1002,9 +1029,16 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:60</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:64</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Contrôles de <code>updateForm</code>, exposés pour l&#39;affichage des erreurs de validation dans le template.</p>
+</div>
+
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -1024,7 +1058,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:94</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">src/app/pages/etudiant-update/etudiant-update.component.ts:98</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -1060,18 +1094,18 @@ import { getHttpStatusText } from &#x27;../../shared/utils/http-status.util&#x27
 
 const UPDATE_SUCCESS_STATUS &#x3D; 200;
 
-@Component({
-  selector: &#x27;app-etudiant-update&#x27;,
-  imports: [CommonModule, MaterialModule, RouterLink],
-  templateUrl: &#x27;./etudiant-update.component.html&#x27;,
-  styleUrl: &#x27;./etudiant-update.component.css&#x27;
-})
 /**
  * Modification d&#x27;un étudiant en deux étapes distinctes, chacune avec son propre formulaire :
  * &#x60;loadForm&#x60; (saisie de l&#x27;id) charge l&#x27;étudiant via &#x60;onLoad&#x60;, puis &#x60;updateForm&#x60; (pré-rempli)
  * envoie les changements via &#x60;onUpdate&#x60;. Toujours possible de recharger un autre id sans
  * recharger la page.
  */
+@Component({
+  selector: &#x27;app-etudiant-update&#x27;,
+  imports: [CommonModule, MaterialModule, RouterLink],
+  templateUrl: &#x27;./etudiant-update.component.html&#x27;,
+  styleUrl: &#x27;./etudiant-update.component.css&#x27;
+})
 export class EtudiantUpdateComponent implements OnInit {
   private etudiantService &#x3D; inject(EtudiantService);
   private authService &#x3D; inject(AuthService);
@@ -1087,9 +1121,11 @@ export class EtudiantUpdateComponent implements OnInit {
   loadError: boolean &#x3D; false;
   isSubmitting: boolean &#x3D; false;
   updateStatus: &#x27;idle&#x27; | &#x27;success&#x27; | &#x27;error&#x27; &#x3D; &#x27;idle&#x27;;
+  /** Issue de la dernière tentative de modification, utilisée pour l&#x27;affichage et le tooltip. */
   updateResult: { status: number; message?: string; success: boolean } | null &#x3D; null;
   etudiantLoaded: boolean &#x3D; false;
 
+  /** Initialise les deux formulaires (recherche par id, puis édition des champs). */
   ngOnInit(): void {
     this.loadForm &#x3D; this.formBuilder.group({
       id: [&#x27;&#x27;, Validators.required]
@@ -1101,10 +1137,12 @@ export class EtudiantUpdateComponent implements OnInit {
     });
   }
 
+  /** Contrôles de &#x60;loadForm&#x60;, exposés pour l&#x27;affichage des erreurs de validation dans le template. */
   get loadFormControls() {
     return this.loadForm.controls;
   }
 
+  /** Contrôles de &#x60;updateForm&#x60;, exposés pour l&#x27;affichage des erreurs de validation dans le template. */
   get updateFormControls() {
     return this.updateForm.controls;
   }
@@ -1187,6 +1225,7 @@ export class EtudiantUpdateComponent implements OnInit {
       });
   }
 
+  /** Déconnecte l&#x27;utilisateur et revient à &#x60;/login&#x60;. */
   logout(): void {
     this.authService.logout();
     this.router.navigate([&#x27;/login&#x27;]);

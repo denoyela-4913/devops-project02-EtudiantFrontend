@@ -2,13 +2,13 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/service/auth.service';
 
+/** Page d'accueil post-connexion : hub de navigation vers les opérations CRUD sur les étudiants. */
 @Component({
   selector: 'app-etudiant-menu',
   imports: [RouterLink],
   templateUrl: './etudiant-menu.component.html',
   styleUrl: './etudiant-menu.component.css'
 })
-/** Page d'accueil post-connexion : hub de navigation vers les opérations CRUD sur les étudiants. */
 export class EtudiantMenuComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -22,6 +22,7 @@ export class EtudiantMenuComponent {
     { label: 'Supprimer un étudiant', path: '/etudiants/supprimer' }
   ];
 
+  /** Déconnecte l'utilisateur et revient à `/login`. */
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);

@@ -6,13 +6,13 @@ import { EtudiantService } from '../../core/service/etudiant.service';
 import { AuthService } from '../../core/service/auth.service';
 import { Etudiant } from '../../core/models/Etudiant';
 
+/** Charge et affiche la liste complète des étudiants au chargement de la page. */
 @Component({
   selector: 'app-etudiant-list',
   imports: [CommonModule, RouterLink],
   templateUrl: './etudiant-list.component.html',
   styleUrl: './etudiant-list.component.css'
 })
-/** Charge et affiche la liste complète des étudiants au chargement de la page. */
 export class EtudiantListComponent implements OnInit {
   private etudiantService = inject(EtudiantService);
   private authService = inject(AuthService);
@@ -23,6 +23,7 @@ export class EtudiantListComponent implements OnInit {
   loading: boolean = false;
   error: boolean = false;
 
+  /** Récupère tous les étudiants et met à jour `loading`/`error` selon l'issue de l'appel. */
   ngOnInit(): void {
     this.loading = true;
     this.error = false;
@@ -40,6 +41,7 @@ export class EtudiantListComponent implements OnInit {
       });
   }
 
+  /** Déconnecte l'utilisateur et revient à `/login`. */
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);

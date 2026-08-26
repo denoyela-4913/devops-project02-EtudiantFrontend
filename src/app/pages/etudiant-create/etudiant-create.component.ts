@@ -12,17 +12,17 @@ import { getHttpStatusText } from '../../shared/utils/http-status.util';
 
 const CREATE_SUCCESS_STATUS = 201;
 
+/**
+ * Formulaire de création d'un étudiant. Le résultat de l'appel (succès ou erreur HTTP) est
+ * conservé dans `createResult`/`createStatus` pour piloter l'affichage et le tooltip du bouton,
+ * plutôt que d'être seulement loggé.
+ */
 @Component({
   selector: 'app-etudiant-create',
   imports: [CommonModule, MaterialModule, RouterLink],
   templateUrl: './etudiant-create.component.html',
   styleUrl: './etudiant-create.component.css'
 })
-/**
- * Formulaire de création d'un étudiant. Le résultat de l'appel (succès ou erreur HTTP) est
- * conservé dans `createResult`/`createStatus` pour piloter l'affichage et le tooltip du bouton,
- * plutôt que d'être seulement loggé.
- */
 export class EtudiantCreateComponent implements OnInit {
   private etudiantService = inject(EtudiantService);
   private authService = inject(AuthService);
@@ -34,8 +34,10 @@ export class EtudiantCreateComponent implements OnInit {
   submitted: boolean = false;
   isSubmitting: boolean = false;
   createStatus: 'idle' | 'success' | 'error' = 'idle';
+  /** Issue de la dernière tentative de création, utilisée pour l'affichage et le tooltip. */
   createResult: { status: number; message?: string; success: boolean } | null = null;
 
+  /** Initialise le formulaire de création. */
   ngOnInit(): void {
     this.createForm = this.formBuilder.group({
       firstName: ['', Validators.required],
@@ -44,6 +46,7 @@ export class EtudiantCreateComponent implements OnInit {
     });
   }
 
+  /** Contrôles du formulaire, exposés pour l'affichage des erreurs de validation dans le template. */
   get form() {
     return this.createForm.controls;
   }
@@ -59,6 +62,7 @@ export class EtudiantCreateComponent implements OnInit {
       : `${statusLine}\n${this.createResult.message}`;
   }
 
+  /** Valide le formulaire puis crée l'étudiant ; réinitialise le formulaire en cas de succès. */
   onSubmit(): void {
     this.submitted = true;
     this.createStatus = 'idle';
@@ -97,6 +101,7 @@ export class EtudiantCreateComponent implements OnInit {
       });
   }
 
+  /** Réinitialise le formulaire et l'état d'affichage du résultat. */
   onReset(): void {
     this.submitted = false;
     this.createStatus = 'idle';
@@ -104,6 +109,7 @@ export class EtudiantCreateComponent implements OnInit {
     this.createForm.reset();
   }
 
+  /** Déconnecte l'utilisateur et revient à `/login`. */
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);

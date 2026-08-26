@@ -12,6 +12,13 @@ import { authGuard } from './core/guards/auth.guard';
 /**
  * Routes de l'application. Le sous-arbre `/etudiants/*` est protégé par `authGuard` posé sur la
  * route parente : toute tentative d'y accéder sans JWT valide redirige vers `/login`.
+ *
+ * La route wildcard (`**`) capture toute URL qui ne correspond à aucune route déclarée
+ * ci-dessus (ex. `/etudiants/xxx`, `/etudiants/detail/6` — ce dernier n'a pas de segment `:id`).
+ * Sans elle, Angular abandonne silencieusement la navigation faute de correspondance : le guard
+ * n'est jamais évalué (il n'est atteint que si toute l'URL matche l'arbre `etudiants/*`), et la
+ * vue précédente peut rester affichée. La wildcard doit rester le DERNIER élément du tableau :
+ * les routes sont testées dans l'ordre et `**` matche tout.
  */
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -34,5 +41,6 @@ export const routes: Routes = [
       { path: 'modifier', component: EtudiantUpdateComponent },
       { path: 'supprimer', component: EtudiantDeleteComponent }
     ]
-  }
+  },
+  { path: '**', redirectTo: 'login' }
 ];

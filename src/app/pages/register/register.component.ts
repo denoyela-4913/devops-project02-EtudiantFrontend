@@ -6,6 +6,11 @@ import { UserService } from '../../core/service/user.service';
 import { Register } from '../../core/models/Register';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
+/**
+ * Inscription d'un nouvel utilisateur. Note : en cas d'échec, l'erreur n'est ni affichée ni
+ * gérée (pas de callback `error`) — seul le succès déclenche un retour visuel (`alert`), et la
+ * redirection vers la page de login reste à implémenter (voir le TODO ci-dessous).
+ */
 @Component({
   selector: 'app-register',
   imports: [CommonModule, MaterialModule],
@@ -13,11 +18,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   standalone: true,
   styleUrl: './register.component.css'
 })
-/**
- * Inscription d'un nouvel utilisateur. Note : en cas d'échec, l'erreur n'est ni affichée ni
- * gérée (pas de callback `error`) — seul le succès déclenche un retour visuel (`alert`), et la
- * redirection vers la page de login reste à implémenter (voir le TODO ci-dessous).
- */
 export class RegisterComponent implements OnInit {
   private userService = inject(UserService);
   private formBuilder = inject(FormBuilder);
@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup = new FormGroup({});
   submitted: boolean = false;
 
+  /** Initialise le formulaire d'inscription. */
   ngOnInit() {
     this.registerForm = this.formBuilder.group(
       {
@@ -36,10 +37,12 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  /** Contrôles du formulaire, exposés pour l'affichage des erreurs de validation dans le template. */
   get form() {
     return this.registerForm.controls;
   }
 
+  /** Valide le formulaire puis envoie l'inscription (voir la note de classe sur la gestion d'erreur absente). */
   onSubmit(): void {
     this.submitted = true;
     if (this.registerForm.invalid) {
@@ -66,6 +69,7 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  /** Réinitialise le formulaire d'inscription. */
   onReset(): void {
     this.submitted = false;
     this.registerForm.reset();

@@ -132,6 +132,9 @@
                         <li>
                             <a href="#getHttpStatusText" title="src/app/shared/utils/http-status.util.ts" ><b>getHttpStatusText</b>&nbsp;&nbsp;&nbsp;(src/.../http-status.util.ts)</a>
                         </li>
+                        <li>
+                            <a href="#readExpiryClaim" title="src/app/core/service/auth.service.ts" ><b>readExpiryClaim</b>&nbsp;&nbsp;&nbsp;(src/.../auth.service.ts)</a>
+                        </li>
                     </ul>
                 </td>
             </tr>
@@ -195,6 +198,71 @@
                             </div>
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app/core/service/auth.service.ts</h3>
+    <section data-compodoc="block-methods">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="readExpiryClaim"></a>
+                    <span class="name">
+                        <span ><b>readExpiryClaim</b></span>
+                        <a href="#readExpiryClaim"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>readExpiryClaim(token: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Décode le claim <code>exp</code> (timestamp Unix, en secondes) d&#39;un JWT, sans vérifier sa signature.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>token</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>number | null</code>
 
                         </div>
                             <div class="io-description">

@@ -138,6 +138,13 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Coquille racine : ne fait qu&#39;héberger le <code>&lt;router-outlet&gt;</code>, toute la logique vit dans les pages routées.</p>
+
+    </p>
 
 
 
@@ -273,6 +280,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
 import { RouterOutlet } from &#x27;@angular/router&#x27;;
 
+/** Coquille racine : ne fait qu&#x27;héberger le &#x60;&lt;router-outlet&gt;&#x60;, toute la logique vit dans les pages routées. */
 @Component({
   selector: &#x27;app-root&#x27;,
   templateUrl: &#x27;./app.component.html&#x27;,
@@ -281,7 +289,6 @@ import { RouterOutlet } from &#x27;@angular/router&#x27;;
   ],
   styleUrl: &#x27;./app.component.css&#x27;
 })
-/** Coquille racine : ne fait qu&#x27;héberger le &#x60;&lt;router-outlet&gt;&#x60;, toute la logique vit dans les pages routées. */
 export class AppComponent {
   title &#x3D; &#x27;etudiant-frontend&#x27;;
 }

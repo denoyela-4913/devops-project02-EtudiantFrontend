@@ -8,6 +8,7 @@ import { AuthService } from '../../core/service/auth.service';
 import { Login } from '../../core/models/Login';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
+/** Authentifie l'utilisateur, stocke le JWT reçu via `AuthService`, puis redirige vers `/etudiants`. */
 @Component({
   selector: 'app-login',
   imports: [CommonModule, MaterialModule],
@@ -15,7 +16,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
   styleUrl: './login.component.css'
 })
-/** Authentifie l'utilisateur, stocke le JWT reçu via `AuthService`, puis redirige vers `/etudiants`. */
 export class LoginComponent implements OnInit {
   private userService = inject(UserService);
   private authService = inject(AuthService);
@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
   loginStatus: 'idle' | 'success' | 'error' = 'idle';
   isSubmitting: boolean = false;
 
+  /** Initialise le formulaire de connexion. */
   ngOnInit() {
     this.loginForm = this.formBuilder.group(
       {
@@ -37,10 +38,12 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  /** Contrôles du formulaire, exposés pour l'affichage des erreurs de validation dans le template. */
   get form() {
     return this.loginForm.controls;
   }
 
+  /** Valide le formulaire puis authentifie ; stocke le JWT et redirige vers `/etudiants` en cas de succès. */
   onSubmit(): void {
     this.submitted = true;
     this.invalidCredentials = false;
@@ -75,6 +78,7 @@ export class LoginComponent implements OnInit {
       });
   }
 
+  /** Réinitialise le formulaire et l'état d'affichage du résultat. */
   onReset(): void {
     this.submitted = false;
     this.invalidCredentials = false;

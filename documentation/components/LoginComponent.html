@@ -138,6 +138,13 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Authentifie l&#39;utilisateur, stocke le JWT reçu via <code>AuthService</code>, puis redirige vers <code>/etudiants</code>.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -325,14 +332,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="31"
-                                    class="link-to-prism">src/app/pages/login/login.component.ts:31</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="32"
+                                    class="link-to-prism">src/app/pages/login/login.component.ts:32</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Initialise le formulaire de connexion.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -362,14 +371,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="78"
-                                    class="link-to-prism">src/app/pages/login/login.component.ts:78</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="82"
+                                    class="link-to-prism">src/app/pages/login/login.component.ts:82</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Réinitialise le formulaire et l&#39;état d&#39;affichage du résultat.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -399,14 +410,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="44"
-                                    class="link-to-prism">src/app/pages/login/login.component.ts:44</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">src/app/pages/login/login.component.ts:47</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Valide le formulaire puis authentifie ; stocke le JWT et redirige vers <code>/etudiants</code> en cas de succès.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -759,9 +772,16 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/pages/login/login.component.ts:40</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/login/login.component.ts:42</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Contrôles du formulaire, exposés pour l&#39;affichage des erreurs de validation dans le template.</p>
+</div>
+
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -780,6 +800,7 @@ import { AuthService } from &#x27;../../core/service/auth.service&#x27;;
 import { Login } from &#x27;../../core/models/Login&#x27;;
 import { takeUntilDestroyed } from &#x27;@angular/core/rxjs-interop&#x27;;
 
+/** Authentifie l&#x27;utilisateur, stocke le JWT reçu via &#x60;AuthService&#x60;, puis redirige vers &#x60;/etudiants&#x60;. */
 @Component({
   selector: &#x27;app-login&#x27;,
   imports: [CommonModule, MaterialModule],
@@ -787,7 +808,6 @@ import { takeUntilDestroyed } from &#x27;@angular/core/rxjs-interop&#x27;;
 
   styleUrl: &#x27;./login.component.css&#x27;
 })
-/** Authentifie l&#x27;utilisateur, stocke le JWT reçu via &#x60;AuthService&#x60;, puis redirige vers &#x60;/etudiants&#x60;. */
 export class LoginComponent implements OnInit {
   private userService &#x3D; inject(UserService);
   private authService &#x3D; inject(AuthService);
@@ -800,6 +820,7 @@ export class LoginComponent implements OnInit {
   loginStatus: &#x27;idle&#x27; | &#x27;success&#x27; | &#x27;error&#x27; &#x3D; &#x27;idle&#x27;;
   isSubmitting: boolean &#x3D; false;
 
+  /** Initialise le formulaire de connexion. */
   ngOnInit() {
     this.loginForm &#x3D; this.formBuilder.group(
       {
@@ -809,10 +830,12 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  /** Contrôles du formulaire, exposés pour l&#x27;affichage des erreurs de validation dans le template. */
   get form() {
     return this.loginForm.controls;
   }
 
+  /** Valide le formulaire puis authentifie ; stocke le JWT et redirige vers &#x60;/etudiants&#x60; en cas de succès. */
   onSubmit(): void {
     this.submitted &#x3D; true;
     this.invalidCredentials &#x3D; false;
@@ -847,6 +870,7 @@ export class LoginComponent implements OnInit {
       });
   }
 
+  /** Réinitialise le formulaire et l&#x27;état d&#x27;affichage du résultat. */
   onReset(): void {
     this.submitted &#x3D; false;
     this.invalidCredentials &#x3D; false;

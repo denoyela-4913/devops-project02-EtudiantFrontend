@@ -138,6 +138,15 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Inscription d&#39;un nouvel utilisateur. Note : en cas d&#39;échec, l&#39;erreur n&#39;est ni affichée ni
+gérée (pas de callback <code>error</code>) — seul le succès déclenche un retour visuel (<code>alert</code>), et la
+redirection vers la page de login reste à implémenter (voir le TODO ci-dessous).</p>
+
+    </p>
 
 
     <p class="comment">
@@ -312,14 +321,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="28"
-                                    class="link-to-prism">src/app/pages/register/register.component.ts:28</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="29"
+                                    class="link-to-prism">src/app/pages/register/register.component.ts:29</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Initialise le formulaire d&#39;inscription.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -349,14 +360,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="69"
-                                    class="link-to-prism">src/app/pages/register/register.component.ts:69</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="73"
+                                    class="link-to-prism">src/app/pages/register/register.component.ts:73</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Réinitialise le formulaire d&#39;inscription.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -386,14 +399,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="43"
-                                    class="link-to-prism">src/app/pages/register/register.component.ts:43</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="46"
+                                    class="link-to-prism">src/app/pages/register/register.component.ts:46</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Valide le formulaire puis envoie l&#39;inscription (voir la note de classe sur la gestion d&#39;erreur absente).</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -589,9 +604,16 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/pages/register/register.component.ts:39</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/pages/register/register.component.ts:41</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Contrôles du formulaire, exposés pour l&#39;affichage des erreurs de validation dans le template.</p>
+</div>
+
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -608,6 +630,11 @@ import { UserService } from &#x27;../../core/service/user.service&#x27;;
 import { Register } from &#x27;../../core/models/Register&#x27;;
 import { takeUntilDestroyed } from &#x27;@angular/core/rxjs-interop&#x27;;
 
+/**
+ * Inscription d&#x27;un nouvel utilisateur. Note : en cas d&#x27;échec, l&#x27;erreur n&#x27;est ni affichée ni
+ * gérée (pas de callback &#x60;error&#x60;) — seul le succès déclenche un retour visuel (&#x60;alert&#x60;), et la
+ * redirection vers la page de login reste à implémenter (voir le TODO ci-dessous).
+ */
 @Component({
   selector: &#x27;app-register&#x27;,
   imports: [CommonModule, MaterialModule],
@@ -615,11 +642,6 @@ import { takeUntilDestroyed } from &#x27;@angular/core/rxjs-interop&#x27;;
   standalone: true,
   styleUrl: &#x27;./register.component.css&#x27;
 })
-/**
- * Inscription d&#x27;un nouvel utilisateur. Note : en cas d&#x27;échec, l&#x27;erreur n&#x27;est ni affichée ni
- * gérée (pas de callback &#x60;error&#x60;) — seul le succès déclenche un retour visuel (&#x60;alert&#x60;), et la
- * redirection vers la page de login reste à implémenter (voir le TODO ci-dessous).
- */
 export class RegisterComponent implements OnInit {
   private userService &#x3D; inject(UserService);
   private formBuilder &#x3D; inject(FormBuilder);
@@ -627,6 +649,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup &#x3D; new FormGroup({});
   submitted: boolean &#x3D; false;
 
+  /** Initialise le formulaire d&#x27;inscription. */
   ngOnInit() {
     this.registerForm &#x3D; this.formBuilder.group(
       {
@@ -638,10 +661,12 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  /** Contrôles du formulaire, exposés pour l&#x27;affichage des erreurs de validation dans le template. */
   get form() {
     return this.registerForm.controls;
   }
 
+  /** Valide le formulaire puis envoie l&#x27;inscription (voir la note de classe sur la gestion d&#x27;erreur absente). */
   onSubmit(): void {
     this.submitted &#x3D; true;
     if (this.registerForm.invalid) {
@@ -668,6 +693,7 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  /** Réinitialise le formulaire d&#x27;inscription. */
   onReset(): void {
     this.submitted &#x3D; false;
     this.registerForm.reset();

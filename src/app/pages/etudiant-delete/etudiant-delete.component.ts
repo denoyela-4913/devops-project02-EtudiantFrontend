@@ -11,13 +11,13 @@ import { getHttpStatusText } from '../../shared/utils/http-status.util';
 
 const DELETE_SUCCESS_STATUS = 204;
 
+/** Supprime un étudiant par identifiant ; aucune confirmation préalable n'est demandée à l'utilisateur. */
 @Component({
   selector: 'app-etudiant-delete',
   imports: [CommonModule, MaterialModule, RouterLink],
   templateUrl: './etudiant-delete.component.html',
   styleUrl: './etudiant-delete.component.css'
 })
-/** Supprime un étudiant par identifiant ; aucune confirmation préalable n'est demandée à l'utilisateur. */
 export class EtudiantDeleteComponent implements OnInit {
   private etudiantService = inject(EtudiantService);
   private authService = inject(AuthService);
@@ -29,14 +29,17 @@ export class EtudiantDeleteComponent implements OnInit {
   submitted: boolean = false;
   isSubmitting: boolean = false;
   deleteStatus: 'idle' | 'success' | 'error' = 'idle';
+  /** Issue de la dernière tentative de suppression, utilisée pour l'affichage et le tooltip. */
   deleteResult: { status: number; message?: string; success: boolean } | null = null;
 
+  /** Initialise le formulaire de suppression. */
   ngOnInit(): void {
     this.deleteForm = this.formBuilder.group({
       id: ['', Validators.required]
     });
   }
 
+  /** Contrôles du formulaire, exposés pour l'affichage des erreurs de validation dans le template. */
   get form() {
     return this.deleteForm.controls;
   }
@@ -52,6 +55,7 @@ export class EtudiantDeleteComponent implements OnInit {
       : `${statusLine}\n${this.deleteResult.message}`;
   }
 
+  /** Valide le formulaire puis supprime l'étudiant `id`. */
   onSubmit(): void {
     this.submitted = true;
     this.deleteStatus = 'idle';
@@ -86,6 +90,7 @@ export class EtudiantDeleteComponent implements OnInit {
       });
   }
 
+  /** Déconnecte l'utilisateur et revient à `/login`. */
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);

@@ -138,6 +138,13 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Charge et affiche la liste complète des étudiants au chargement de la page.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -298,14 +305,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="43"
-                                    class="link-to-prism">src/app/pages/etudiant-list/etudiant-list.component.ts:43</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="45"
+                                    class="link-to-prism">src/app/pages/etudiant-list/etudiant-list.component.ts:45</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Déconnecte l&#39;utilisateur et revient à <code>/login</code>.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -335,14 +344,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">src/app/pages/etudiant-list/etudiant-list.component.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="27"
+                                    class="link-to-prism">src/app/pages/etudiant-list/etudiant-list.component.ts:27</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Récupère tous les étudiants et met à jour <code>loading</code>/<code>error</code> selon l&#39;issue de l&#39;appel.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -593,13 +604,13 @@ import { EtudiantService } from &#x27;../../core/service/etudiant.service&#x27;;
 import { AuthService } from &#x27;../../core/service/auth.service&#x27;;
 import { Etudiant } from &#x27;../../core/models/Etudiant&#x27;;
 
+/** Charge et affiche la liste complète des étudiants au chargement de la page. */
 @Component({
   selector: &#x27;app-etudiant-list&#x27;,
   imports: [CommonModule, RouterLink],
   templateUrl: &#x27;./etudiant-list.component.html&#x27;,
   styleUrl: &#x27;./etudiant-list.component.css&#x27;
 })
-/** Charge et affiche la liste complète des étudiants au chargement de la page. */
 export class EtudiantListComponent implements OnInit {
   private etudiantService &#x3D; inject(EtudiantService);
   private authService &#x3D; inject(AuthService);
@@ -610,6 +621,7 @@ export class EtudiantListComponent implements OnInit {
   loading: boolean &#x3D; false;
   error: boolean &#x3D; false;
 
+  /** Récupère tous les étudiants et met à jour &#x60;loading&#x60;/&#x60;error&#x60; selon l&#x27;issue de l&#x27;appel. */
   ngOnInit(): void {
     this.loading &#x3D; true;
     this.error &#x3D; false;
@@ -627,6 +639,7 @@ export class EtudiantListComponent implements OnInit {
       });
   }
 
+  /** Déconnecte l&#x27;utilisateur et revient à &#x60;/login&#x60;. */
   logout(): void {
     this.authService.logout();
     this.router.navigate([&#x27;/login&#x27;]);

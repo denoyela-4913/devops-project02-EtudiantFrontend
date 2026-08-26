@@ -138,6 +138,15 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Formulaire de création d&#39;un étudiant. Le résultat de l&#39;appel (succès ou erreur HTTP) est
+conservé dans <code>createResult</code>/<code>createStatus</code> pour piloter l&#39;affichage et le tooltip du bouton,
+plutôt que d&#39;être seulement loggé.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -332,14 +341,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="107"
-                                    class="link-to-prism">src/app/pages/etudiant-create/etudiant-create.component.ts:107</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="113"
+                                    class="link-to-prism">src/app/pages/etudiant-create/etudiant-create.component.ts:113</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Déconnecte l&#39;utilisateur et revient à <code>/login</code>.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -369,14 +380,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="39"
-                                    class="link-to-prism">src/app/pages/etudiant-create/etudiant-create.component.ts:39</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">src/app/pages/etudiant-create/etudiant-create.component.ts:41</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Initialise le formulaire de création.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -406,14 +419,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="100"
-                                    class="link-to-prism">src/app/pages/etudiant-create/etudiant-create.component.ts:100</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="105"
+                                    class="link-to-prism">src/app/pages/etudiant-create/etudiant-create.component.ts:105</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Réinitialise le formulaire et l&#39;état d&#39;affichage du résultat.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -443,14 +458,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="62"
-                                    class="link-to-prism">src/app/pages/etudiant-create/etudiant-create.component.ts:62</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="66"
+                                    class="link-to-prism">src/app/pages/etudiant-create/etudiant-create.component.ts:66</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Valide le formulaire puis crée l&#39;étudiant ; réinitialise le formulaire en cas de succès.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -553,10 +570,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/etudiant-create/etudiant-create.component.ts:37</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/pages/etudiant-create/etudiant-create.component.ts:38</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Issue de la dernière tentative de création, utilisée pour l&#39;affichage et le tooltip.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -803,9 +826,16 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/pages/etudiant-create/etudiant-create.component.ts:47</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/pages/etudiant-create/etudiant-create.component.ts:50</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Contrôles du formulaire, exposés pour l&#39;affichage des erreurs de validation dans le template.</p>
+</div>
+
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -825,7 +855,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/pages/etudiant-create/etudiant-create.component.ts:52</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/pages/etudiant-create/etudiant-create.component.ts:55</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -861,17 +891,17 @@ import { getHttpStatusText } from &#x27;../../shared/utils/http-status.util&#x27
 
 const CREATE_SUCCESS_STATUS &#x3D; 201;
 
+/**
+ * Formulaire de création d&#x27;un étudiant. Le résultat de l&#x27;appel (succès ou erreur HTTP) est
+ * conservé dans &#x60;createResult&#x60;/&#x60;createStatus&#x60; pour piloter l&#x27;affichage et le tooltip du bouton,
+ * plutôt que d&#x27;être seulement loggé.
+ */
 @Component({
   selector: &#x27;app-etudiant-create&#x27;,
   imports: [CommonModule, MaterialModule, RouterLink],
   templateUrl: &#x27;./etudiant-create.component.html&#x27;,
   styleUrl: &#x27;./etudiant-create.component.css&#x27;
 })
-/**
- * Formulaire de création d&#x27;un étudiant. Le résultat de l&#x27;appel (succès ou erreur HTTP) est
- * conservé dans &#x60;createResult&#x60;/&#x60;createStatus&#x60; pour piloter l&#x27;affichage et le tooltip du bouton,
- * plutôt que d&#x27;être seulement loggé.
- */
 export class EtudiantCreateComponent implements OnInit {
   private etudiantService &#x3D; inject(EtudiantService);
   private authService &#x3D; inject(AuthService);
@@ -883,8 +913,10 @@ export class EtudiantCreateComponent implements OnInit {
   submitted: boolean &#x3D; false;
   isSubmitting: boolean &#x3D; false;
   createStatus: &#x27;idle&#x27; | &#x27;success&#x27; | &#x27;error&#x27; &#x3D; &#x27;idle&#x27;;
+  /** Issue de la dernière tentative de création, utilisée pour l&#x27;affichage et le tooltip. */
   createResult: { status: number; message?: string; success: boolean } | null &#x3D; null;
 
+  /** Initialise le formulaire de création. */
   ngOnInit(): void {
     this.createForm &#x3D; this.formBuilder.group({
       firstName: [&#x27;&#x27;, Validators.required],
@@ -893,6 +925,7 @@ export class EtudiantCreateComponent implements OnInit {
     });
   }
 
+  /** Contrôles du formulaire, exposés pour l&#x27;affichage des erreurs de validation dans le template. */
   get form() {
     return this.createForm.controls;
   }
@@ -908,6 +941,7 @@ export class EtudiantCreateComponent implements OnInit {
       : &#x60;${statusLine}\n${this.createResult.message}&#x60;;
   }
 
+  /** Valide le formulaire puis crée l&#x27;étudiant ; réinitialise le formulaire en cas de succès. */
   onSubmit(): void {
     this.submitted &#x3D; true;
     this.createStatus &#x3D; &#x27;idle&#x27;;
@@ -946,6 +980,7 @@ export class EtudiantCreateComponent implements OnInit {
       });
   }
 
+  /** Réinitialise le formulaire et l&#x27;état d&#x27;affichage du résultat. */
   onReset(): void {
     this.submitted &#x3D; false;
     this.createStatus &#x3D; &#x27;idle&#x27;;
@@ -953,6 +988,7 @@ export class EtudiantCreateComponent implements OnInit {
     this.createForm.reset();
   }
 
+  /** Déconnecte l&#x27;utilisateur et revient à &#x60;/login&#x60;. */
   logout(): void {
     this.authService.logout();
     this.router.navigate([&#x27;/login&#x27;]);

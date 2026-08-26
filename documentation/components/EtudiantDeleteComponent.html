@@ -138,6 +138,13 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Supprime un étudiant par identifiant ; aucune confirmation préalable n&#39;est demandée à l&#39;utilisateur.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -329,14 +336,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="89"
-                                    class="link-to-prism">src/app/pages/etudiant-delete/etudiant-delete.component.ts:89</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="94"
+                                    class="link-to-prism">src/app/pages/etudiant-delete/etudiant-delete.component.ts:94</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Déconnecte l&#39;utilisateur et revient à <code>/login</code>.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -366,14 +375,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="34"
-                                    class="link-to-prism">src/app/pages/etudiant-delete/etudiant-delete.component.ts:34</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="36"
+                                    class="link-to-prism">src/app/pages/etudiant-delete/etudiant-delete.component.ts:36</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Initialise le formulaire de suppression.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -403,14 +414,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="55"
-                                    class="link-to-prism">src/app/pages/etudiant-delete/etudiant-delete.component.ts:55</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">src/app/pages/etudiant-delete/etudiant-delete.component.ts:59</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Valide le formulaire puis supprime l&#39;étudiant <code>id</code>.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -513,10 +526,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/etudiant-delete/etudiant-delete.component.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/etudiant-delete/etudiant-delete.component.ts:33</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Issue de la dernière tentative de suppression, utilisée pour l&#39;affichage et le tooltip.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -763,9 +782,16 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/pages/etudiant-delete/etudiant-delete.component.ts:40</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/pages/etudiant-delete/etudiant-delete.component.ts:43</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Contrôles du formulaire, exposés pour l&#39;affichage des erreurs de validation dans le template.</p>
+</div>
+
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -785,7 +811,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/pages/etudiant-delete/etudiant-delete.component.ts:45</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/pages/etudiant-delete/etudiant-delete.component.ts:48</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -820,13 +846,13 @@ import { getHttpStatusText } from &#x27;../../shared/utils/http-status.util&#x27
 
 const DELETE_SUCCESS_STATUS &#x3D; 204;
 
+/** Supprime un étudiant par identifiant ; aucune confirmation préalable n&#x27;est demandée à l&#x27;utilisateur. */
 @Component({
   selector: &#x27;app-etudiant-delete&#x27;,
   imports: [CommonModule, MaterialModule, RouterLink],
   templateUrl: &#x27;./etudiant-delete.component.html&#x27;,
   styleUrl: &#x27;./etudiant-delete.component.css&#x27;
 })
-/** Supprime un étudiant par identifiant ; aucune confirmation préalable n&#x27;est demandée à l&#x27;utilisateur. */
 export class EtudiantDeleteComponent implements OnInit {
   private etudiantService &#x3D; inject(EtudiantService);
   private authService &#x3D; inject(AuthService);
@@ -838,14 +864,17 @@ export class EtudiantDeleteComponent implements OnInit {
   submitted: boolean &#x3D; false;
   isSubmitting: boolean &#x3D; false;
   deleteStatus: &#x27;idle&#x27; | &#x27;success&#x27; | &#x27;error&#x27; &#x3D; &#x27;idle&#x27;;
+  /** Issue de la dernière tentative de suppression, utilisée pour l&#x27;affichage et le tooltip. */
   deleteResult: { status: number; message?: string; success: boolean } | null &#x3D; null;
 
+  /** Initialise le formulaire de suppression. */
   ngOnInit(): void {
     this.deleteForm &#x3D; this.formBuilder.group({
       id: [&#x27;&#x27;, Validators.required]
     });
   }
 
+  /** Contrôles du formulaire, exposés pour l&#x27;affichage des erreurs de validation dans le template. */
   get form() {
     return this.deleteForm.controls;
   }
@@ -861,6 +890,7 @@ export class EtudiantDeleteComponent implements OnInit {
       : &#x60;${statusLine}\n${this.deleteResult.message}&#x60;;
   }
 
+  /** Valide le formulaire puis supprime l&#x27;étudiant &#x60;id&#x60;. */
   onSubmit(): void {
     this.submitted &#x3D; true;
     this.deleteStatus &#x3D; &#x27;idle&#x27;;
@@ -895,6 +925,7 @@ export class EtudiantDeleteComponent implements OnInit {
       });
   }
 
+  /** Déconnecte l&#x27;utilisateur et revient à &#x60;/login&#x60;. */
   logout(): void {
     this.authService.logout();
     this.router.navigate([&#x27;/login&#x27;]);

@@ -138,6 +138,13 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Recherche un étudiant par identifiant et affiche ses détails, ou une erreur si non trouvé.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -326,14 +333,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="67"
-                                    class="link-to-prism">src/app/pages/etudiant-detail/etudiant-detail.component.ts:67</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="71"
+                                    class="link-to-prism">src/app/pages/etudiant-detail/etudiant-detail.component.ts:71</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Déconnecte l&#39;utilisateur et revient à <code>/login</code>.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -363,14 +372,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="31"
-                                    class="link-to-prism">src/app/pages/etudiant-detail/etudiant-detail.component.ts:31</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="32"
+                                    class="link-to-prism">src/app/pages/etudiant-detail/etudiant-detail.component.ts:32</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Initialise le formulaire de recherche (un seul champ : l&#39;id).</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -400,14 +411,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="41"
-                                    class="link-to-prism">src/app/pages/etudiant-detail/etudiant-detail.component.ts:41</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">src/app/pages/etudiant-detail/etudiant-detail.component.ts:44</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Valide le formulaire puis recherche l&#39;étudiant par id ; renseigne <code>etudiant</code> ou <code>error</code>.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -760,9 +773,16 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/etudiant-detail/etudiant-detail.component.ts:37</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/pages/etudiant-detail/etudiant-detail.component.ts:39</a></div>
                                 </td>
                             </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Contrôles du formulaire, exposés pour l&#39;affichage des erreurs de validation dans le template.</p>
+</div>
+
+                        </td>
+                    </tr>
 
             </tbody>
         </table>
@@ -781,13 +801,13 @@ import { EtudiantService } from &#x27;../../core/service/etudiant.service&#x27;;
 import { AuthService } from &#x27;../../core/service/auth.service&#x27;;
 import { Etudiant } from &#x27;../../core/models/Etudiant&#x27;;
 
+/** Recherche un étudiant par identifiant et affiche ses détails, ou une erreur si non trouvé. */
 @Component({
   selector: &#x27;app-etudiant-detail&#x27;,
   imports: [CommonModule, MaterialModule, RouterLink],
   templateUrl: &#x27;./etudiant-detail.component.html&#x27;,
   styleUrl: &#x27;./etudiant-detail.component.css&#x27;
 })
-/** Recherche un étudiant par identifiant et affiche ses détails, ou une erreur si non trouvé. */
 export class EtudiantDetailComponent implements OnInit {
   private etudiantService &#x3D; inject(EtudiantService);
   private authService &#x3D; inject(AuthService);
@@ -801,16 +821,19 @@ export class EtudiantDetailComponent implements OnInit {
   error: boolean &#x3D; false;
   etudiant: Etudiant | null &#x3D; null;
 
+  /** Initialise le formulaire de recherche (un seul champ : l&#x27;id). */
   ngOnInit(): void {
     this.searchForm &#x3D; this.formBuilder.group({
       id: [&#x27;&#x27;, Validators.required]
     });
   }
 
+  /** Contrôles du formulaire, exposés pour l&#x27;affichage des erreurs de validation dans le template. */
   get form() {
     return this.searchForm.controls;
   }
 
+  /** Valide le formulaire puis recherche l&#x27;étudiant par id ; renseigne &#x60;etudiant&#x60; ou &#x60;error&#x60;. */
   onSubmit(): void {
     this.submitted &#x3D; true;
     this.etudiant &#x3D; null;
@@ -837,6 +860,7 @@ export class EtudiantDetailComponent implements OnInit {
       });
   }
 
+  /** Déconnecte l&#x27;utilisateur et revient à &#x60;/login&#x60;. */
   logout(): void {
     this.authService.logout();
     this.router.navigate([&#x27;/login&#x27;]);

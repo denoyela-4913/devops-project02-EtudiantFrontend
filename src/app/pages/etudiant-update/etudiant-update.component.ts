@@ -12,18 +12,18 @@ import { getHttpStatusText } from '../../shared/utils/http-status.util';
 
 const UPDATE_SUCCESS_STATUS = 200;
 
-@Component({
-  selector: 'app-etudiant-update',
-  imports: [CommonModule, MaterialModule, RouterLink],
-  templateUrl: './etudiant-update.component.html',
-  styleUrl: './etudiant-update.component.css'
-})
 /**
  * Modification d'un étudiant en deux étapes distinctes, chacune avec son propre formulaire :
  * `loadForm` (saisie de l'id) charge l'étudiant via `onLoad`, puis `updateForm` (pré-rempli)
  * envoie les changements via `onUpdate`. Toujours possible de recharger un autre id sans
  * recharger la page.
  */
+@Component({
+  selector: 'app-etudiant-update',
+  imports: [CommonModule, MaterialModule, RouterLink],
+  templateUrl: './etudiant-update.component.html',
+  styleUrl: './etudiant-update.component.css'
+})
 export class EtudiantUpdateComponent implements OnInit {
   private etudiantService = inject(EtudiantService);
   private authService = inject(AuthService);
@@ -39,9 +39,11 @@ export class EtudiantUpdateComponent implements OnInit {
   loadError: boolean = false;
   isSubmitting: boolean = false;
   updateStatus: 'idle' | 'success' | 'error' = 'idle';
+  /** Issue de la dernière tentative de modification, utilisée pour l'affichage et le tooltip. */
   updateResult: { status: number; message?: string; success: boolean } | null = null;
   etudiantLoaded: boolean = false;
 
+  /** Initialise les deux formulaires (recherche par id, puis édition des champs). */
   ngOnInit(): void {
     this.loadForm = this.formBuilder.group({
       id: ['', Validators.required]
@@ -53,10 +55,12 @@ export class EtudiantUpdateComponent implements OnInit {
     });
   }
 
+  /** Contrôles de `loadForm`, exposés pour l'affichage des erreurs de validation dans le template. */
   get loadFormControls() {
     return this.loadForm.controls;
   }
 
+  /** Contrôles de `updateForm`, exposés pour l'affichage des erreurs de validation dans le template. */
   get updateFormControls() {
     return this.updateForm.controls;
   }
@@ -139,6 +143,7 @@ export class EtudiantUpdateComponent implements OnInit {
       });
   }
 
+  /** Déconnecte l'utilisateur et revient à `/login`. */
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);

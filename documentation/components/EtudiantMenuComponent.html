@@ -138,6 +138,13 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Page d&#39;accueil post-connexion : hub de navigation vers les opérations CRUD sur les étudiants.</p>
+
+    </p>
 
 
 
@@ -274,14 +281,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="25"
-                                    class="link-to-prism">src/app/pages/etudiant-menu/etudiant-menu.component.ts:25</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="26"
+                                    class="link-to-prism">src/app/pages/etudiant-menu/etudiant-menu.component.ts:26</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Déconnecte l&#39;utilisateur et revient à <code>/login</code>.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -414,13 +423,13 @@
 import { Router, RouterLink } from &#x27;@angular/router&#x27;;
 import { AuthService } from &#x27;../../core/service/auth.service&#x27;;
 
+/** Page d&#x27;accueil post-connexion : hub de navigation vers les opérations CRUD sur les étudiants. */
 @Component({
   selector: &#x27;app-etudiant-menu&#x27;,
   imports: [RouterLink],
   templateUrl: &#x27;./etudiant-menu.component.html&#x27;,
   styleUrl: &#x27;./etudiant-menu.component.css&#x27;
 })
-/** Page d&#x27;accueil post-connexion : hub de navigation vers les opérations CRUD sur les étudiants. */
 export class EtudiantMenuComponent {
   private authService &#x3D; inject(AuthService);
   private router &#x3D; inject(Router);
@@ -434,6 +443,7 @@ export class EtudiantMenuComponent {
     { label: &#x27;Supprimer un étudiant&#x27;, path: &#x27;/etudiants/supprimer&#x27; }
   ];
 
+  /** Déconnecte l&#x27;utilisateur et revient à &#x60;/login&#x60;. */
   logout(): void {
     this.authService.logout();
     this.router.navigate([&#x27;/login&#x27;]);
