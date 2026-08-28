@@ -14,7 +14,8 @@
     "compodoc:serve:watch": "npx compodoc -p src/tsconfig.app.json -s --watch",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "cypress:component": "cypress run --component"
   },
   "private": true,
   "dependencies": {

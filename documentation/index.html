@@ -430,11 +430,6 @@ npm run test:watch    # mode watch</code></pre></div><table class="table table-b
 <td><code>register</code>/<code>login</code> via <code>HttpTestingController</code></td>
 </tr>
 <tr>
-<td><a href="src/app/core/service/user-mock.service.spec.ts">core/service/user-mock.service.spec.ts</a></td>
-<td>Unitaire</td>
-<td><code>register</code>/<code>login</code> renvoient bien un <code>Observable</code></td>
-</tr>
-<tr>
 <td><a href="src/app/core/interceptors/auth.interceptor.spec.ts">core/interceptors/auth.interceptor.spec.ts</a></td>
 <td>Intégration</td>
 <td>En-tête <code>Authorization</code> ajouté si token présent, absent sinon</td>
@@ -479,10 +474,15 @@ npm run test:watch    # mode watch</code></pre></div><table class="table table-b
 <td>Intégration</td>
 <td>Suppression invalide/succès/erreur + déconnexion</td>
 </tr>
+<tr>
+<td><a href="src/app/app.routes.e2e-coverage.spec.ts">app.routes.e2e-coverage.spec.ts</a></td>
+<td>Architecture</td>
+<td>Test-garde : chaque route rendant un composant est ciblée par ≥ 1 spec <code>cypress/e2e/</code>, et la suite e2e ne descend pas sous ses planchers (nombre de fichiers / de tests)</td>
+</tr>
 </tbody>
 </table>
 <blockquote>
-<p>Couverture de code : 100 % (statements/branches/fonctions/lignes) sur <code>src/app/**/*.ts</code> (hors modèles et fichiers de config <code>app.config.ts</code>/<code>app.routes.ts</code>, exclus de la mesure faute de logique à tester).</p>
+<p>Couverture de code : ~96 % de lignes sur <code>src/app/**/*.ts</code> (hors modèles et fichiers de config <code>app.config.ts</code>/<code>app.routes.ts</code>, exclus de la mesure faute de logique à tester). Seuil bloquant : 80 % de lignes au niveau global (voir <code>jest.config.js</code>).</p>
 </blockquote>
 <p>Chaque exécution (<code>npm run test</code>, <code>npm run test:watch</code>) génère/actualise un rapport HTML consultable à tout moment : <strong><code>test-report/rapport-tests-unit.html</code></strong>. Règle de mise à jour (même principe que le rapport de tests du backend) :</p>
 <ul>
@@ -493,12 +493,15 @@ npm run test:watch    # mode watch</code></pre></div><table class="table table-b
 <ul>
 <li><strong>Unitaire</strong> : une seule classe testée (service, composant racine), dépendances absentes ou mockées (HTTP simulé via <code>HttpTestingController</code>).</li>
 <li><strong>Intégration</strong> : composant Angular orchestré avec de vrais collaborateurs (Router, AuthService) via <code>TestBed</code>, ou intercepteur testé avec le vrai pipeline <code>HttpClient</code>.</li>
+<li><strong>Architecture</strong> : test-garde qui ne vérifie pas le comportement de l&#39;app mais l&#39;intégrité d&#39;une autre suite. Ici : <a href="src/app/app.routes.e2e-coverage.spec.ts">app.routes.e2e-coverage.spec.ts</a> — voir la section Cypress ci-dessous.</li>
 </ul>
 <h3>Tests end-to-end &amp; composants (Cypress)</h3>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm run cypress:open  # interface interactive
-npm run cypress:run   # exécution headless (CI)</code></pre></div><ul>
-<li>Les tests e2e se trouvent dans <code>cypress/e2e/</code> (baseUrl <code>http://localhost:4200</code>).</li>
-<li>Les tests de composants (<code>*.cy.ts</code> à côté de chaque page) utilisent le devServer Angular/Webpack.</li>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm run cypress:open       # interface interactive
+npm run cypress:run        # e2e headless (cypress/e2e/)
+npm run cypress:component   # tests de composants headless (src/**/*.component.cy.ts)</code></pre></div><ul>
+<li>Les tests e2e se trouvent dans <code>cypress/e2e/</code> (baseUrl <code>http://localhost:4200</code>, nécessite <code>npm start</code>). Tous les appels <code>/api/*</code> sont simulés via <code>cy.intercept</code> ; les écrans protégés sont atteints avec un JWT posé en <code>sessionStorage</code> par <code>cy.visitAuthenticated</code> (voir <a href="cypress/support/commands.ts">commands.ts</a> et <a href="cypress/support/jwt.ts">jwt.ts</a>).</li>
+<li>Les tests de composants (<code>src/**/*.component.cy.ts</code>, deux exemples à côté des pages <code>etudiant-list</code> et <code>etudiant-menu</code>) montent le composant seul via le devServer Angular/Webpack de Cypress.</li>
+<li><strong>La CI exécute les deux</strong> : step <code>E2E (Cypress)</code> puis step <code>Tests de composants (Cypress)</code> dans <a href=".github/workflows/ci.yml">ci.yml</a>.</li>
 </ul>
 <table class="table table-bordered compodoc-table">
 <thead>
@@ -510,46 +513,74 @@ npm run cypress:run   # exécution headless (CI)</code></pre></div><ul>
 </thead>
 <tbody>
 <tr>
-<td><a href="cypress/e2e/nrg_e2e.cy.ts">cypress/e2e/nrg_e2e.cy.ts</a></td>
+<td><a href="cypress/e2e/navigation.cy.ts">cypress/e2e/navigation.cy.ts</a></td>
 <td>E2E</td>
-<td>Gabarit généré par défaut : visite <code>/login</code> (aucun scénario métier encore écrit)</td>
+<td>Redirections <code>/</code> → <code>/login</code>, URL inconnue → <code>/login</code> (wildcard), pages <code>/login</code> et <code>/register</code> publiques</td>
 </tr>
 <tr>
-<td><a href="src/app/pages/etudiant-menu/etudiant-menu.component.cy.ts">pages/etudiant-menu/etudiant-menu.component.cy.ts</a></td>
-<td>Fonctionnel</td>
-<td><code>EtudiantMenuComponent</code> se monte sans erreur</td>
+<td><a href="cypress/e2e/authentication.cy.ts">cypress/e2e/authentication.cy.ts</a></td>
+<td>E2E</td>
+<td>Connexion OK (JWT stocké → zone protégée) · 401 identifiants · route protégée sans session · déconnexion · <strong>JWT expiré → purge + <code>/login</code></strong> · <strong>401 API → déconnexion auto</strong> · <strong>en-tête <code>Authorization: Bearer</code></strong></td>
+</tr>
+<tr>
+<td><a href="cypress/e2e/register.cy.ts">cypress/e2e/register.cy.ts</a></td>
+<td>E2E</td>
+<td>Rendu du formulaire, inscription envoyée avec le bon payload + alerte succès, erreurs de validation sans appel API</td>
+</tr>
+<tr>
+<td><a href="cypress/e2e/etudiant-menu.cy.ts">cypress/e2e/etudiant-menu.cy.ts</a></td>
+<td>E2E</td>
+<td>Menu : liste des actions CRUD + déconnexion, navigation vers la liste</td>
+</tr>
+<tr>
+<td><a href="cypress/e2e/etudiant-list.cy.ts">cypress/e2e/etudiant-list.cy.ts</a></td>
+<td>E2E</td>
+<td>Liste : affichage des étudiants de l&#39;API, message d&#39;erreur si l&#39;appel échoue</td>
+</tr>
+<tr>
+<td><a href="cypress/e2e/etudiant-detail.cy.ts">cypress/e2e/etudiant-detail.cy.ts</a></td>
+<td>E2E</td>
+<td>Détail : étudiant trouvé par id, « Étudiant introuvable » sur 404</td>
+</tr>
+<tr>
+<td><a href="cypress/e2e/etudiant-create.cy.ts">cypress/e2e/etudiant-create.cy.ts</a></td>
+<td>E2E</td>
+<td>Création : succès + message, erreurs de validation sans appel API</td>
+</tr>
+<tr>
+<td><a href="cypress/e2e/etudiant-update.cy.ts">cypress/e2e/etudiant-update.cy.ts</a></td>
+<td>E2E</td>
+<td>Modification : chargement + édition + succès, « Étudiant introuvable » sur id inconnu</td>
+</tr>
+<tr>
+<td><a href="cypress/e2e/etudiant-delete.cy.ts">cypress/e2e/etudiant-delete.cy.ts</a></td>
+<td>E2E</td>
+<td>Suppression : succès + message, message d&#39;erreur si l&#39;appel échoue</td>
 </tr>
 <tr>
 <td><a href="src/app/pages/etudiant-list/etudiant-list.component.cy.ts">pages/etudiant-list/etudiant-list.component.cy.ts</a></td>
 <td>Fonctionnel</td>
-<td><code>EtudiantListComponent</code> se monte sans erreur</td>
+<td>Rendu du tableau depuis l&#39;API simulée (<code>cy.intercept</code>) + état d&#39;erreur — exemple de référence Component Testing</td>
 </tr>
 <tr>
-<td><a href="src/app/pages/etudiant-detail/etudiant-detail.component.cy.ts">pages/etudiant-detail/etudiant-detail.component.cy.ts</a></td>
+<td><a href="src/app/pages/etudiant-menu/etudiant-menu.component.cy.ts">pages/etudiant-menu/etudiant-menu.component.cy.ts</a></td>
 <td>Fonctionnel</td>
-<td><code>EtudiantDetailComponent</code> se monte sans erreur</td>
-</tr>
-<tr>
-<td><a href="src/app/pages/etudiant-create/etudiant-create.component.cy.ts">pages/etudiant-create/etudiant-create.component.cy.ts</a></td>
-<td>Fonctionnel</td>
-<td><code>EtudiantCreateComponent</code> se monte sans erreur</td>
-</tr>
-<tr>
-<td><a href="src/app/pages/etudiant-update/etudiant-update.component.cy.ts">pages/etudiant-update/etudiant-update.component.cy.ts</a></td>
-<td>Fonctionnel</td>
-<td><code>EtudiantUpdateComponent</code> se monte sans erreur</td>
-</tr>
-<tr>
-<td><a href="src/app/pages/etudiant-delete/etudiant-delete.component.cy.ts">pages/etudiant-delete/etudiant-delete.component.cy.ts</a></td>
-<td>Fonctionnel</td>
-<td><code>EtudiantDeleteComponent</code> se monte sans erreur</td>
+<td>Rendu des entrées de menu + bouton déconnexion — exemple minimal de Component Testing (sans HTTP)</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p>Les tests de composants restent des smoke tests (« le composant se monte »), pas encore des scénarios utilisateur complets. Le test e2e est un gabarit sans assertion métier.</p>
+<p><strong>Portée réelle des « e2e »</strong> : navigateur réel + Angular complet (routing, garde, intercepteur, templates), mais <strong>backend simulé</strong> (<code>cy.intercept</code> sur tout <code>/api/*</code>). Ce sont des tests d&#39;intégration frontend, pas des e2e contre une API vivante.
+Seuls <strong>deux</strong> tests de composants sont conservés, comme exemples de Cypress Component Testing.</p>
 </blockquote>
-<p>Chaque exécution (<code>npm run cypress:run</code>, ou une spec lancée depuis <code>npm run cypress:open</code>) génère/actualise <strong><code>test-report/rapport-tests-cypress.html</code></strong>, avec la même règle reset/update que le rapport Jest : plusieurs specs prévues → réinitialisation ; une seule spec (ou un test filtré via <code>.only</code>) → seules ses lignes sont mises à jour.</p>
+<h4>Garde d&#39;intégrité de la suite e2e</h4>
+<p>Le builder Angular utilisé (<code>@angular-devkit/build-angular:application</code>, esbuild) ne s&#39;instrumente pas pour Istanbul sans surcoût disproportionné. <strong>Les runs Cypress ne produisent donc aucune métrique de couverture et aucun seuil bloquant</strong> — seul « le job CI est vert » garantit quelque chose. Pour éviter que la suite e2e se dégrade en silence (spec supprimée, tests vidés), un test Jest fait office de garde : <a href="src/app/app.routes.e2e-coverage.spec.ts">app.routes.e2e-coverage.spec.ts</a> (catégorie <strong>Architecture</strong>). Il fait échouer <code>npm test</code> si :</p>
+<ol>
+<li>une route de <a href="src/app/app.routes.ts">app.routes.ts</a> qui rend un composant n&#39;est plus référencée par aucun spec <code>cypress/e2e/*.cy.ts</code> (ajouter une route <strong>force</strong> à écrire son parcours e2e) ;</li>
+<li>le nombre de fichiers de specs e2e, ou le nombre total de tests e2e, passe sous un plancher.</li>
+</ol>
+<p>Les planchers (<code>MIN_SPEC_FILES</code>, <code>MIN_E2E_TESTS</code> dans le fichier) sont un <strong>cliquet</strong> : on les monte quand un ajout légitime les dépasse, on ne les baisse pas sans justification en revue. Ça ne remplace pas une vraie couverture ligne à ligne — ça empêche seulement la disparition silencieuse de pans entiers de la suite.</p>
+<p>Chaque exécution (<code>cypress:run</code>, <code>cypress:component</code>, ou une spec depuis <code>cypress:open</code>) génère/actualise <strong><code>test-report/rapport-tests-cypress.html</code></strong>. Règle reset/update : sur une campagne multi-specs, seules les lignes des fichiers de <strong>cette</strong> campagne sont réinitialisées (un run e2e ne touche pas aux lignes des tests de composants et inversement) ; sur une spec isolée, seules ses lignes sont mises à jour.</p>
 <p>Ce rapport inclut aussi une colonne <strong>Catégorie</strong> (voir <code>categoryFor</code> dans <a href="test-report-support/cypress-report.ts">cypress-report.ts</a>) :</p>
 <ul>
 <li><strong>Fonctionnel</strong> : rendu réel du composant dans un navigateur (Cypress Component Testing).</li>

@@ -16,7 +16,9 @@ export default defineConfig({
       framework: 'angular',
       bundler: 'webpack',
     },
-    specPattern: '**/*.cy.ts',
+    // Uniquement les tests de composants (à côté des pages). Sans ce scope, le motif par
+    // défaut engloberait aussi cypress/e2e/**/*.cy.ts, qui ne sont pas des tests de composants.
+    specPattern: 'src/**/*.cy.ts',
     setupNodeEvents(on) {
       registerTestReport(on)
     }

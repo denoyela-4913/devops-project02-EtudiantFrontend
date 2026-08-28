@@ -528,7 +528,8 @@ déconnecte l&#39;utilisateur et le redirige vers <code>/login</code> : le JWT e
       { path: &#x27;modifier&#x27;, component: EtudiantUpdateComponent },
       { path: &#x27;supprimer&#x27;, component: EtudiantDeleteComponent }
     ]
-  }
+  },
+  { path: &#x27;**&#x27;, redirectTo: &#x27;login&#x27; }
 ]</code>
                     </td>
                 </tr>
@@ -537,6 +538,12 @@ déconnecte l&#39;utilisateur et le redirige vers <code>/login</code> : le JWT e
                 <td class="col-md-4">
                     <div class="io-description"><p>Routes de l&#39;application. Le sous-arbre <code>/etudiants/*</code> est protégé par <code>authGuard</code> posé sur la
 route parente : toute tentative d&#39;y accéder sans JWT valide redirige vers <code>/login</code>.</p>
+<p>La route wildcard (<code>**</code>) capture toute URL qui ne correspond à aucune route déclarée
+ci-dessus (ex. <code>/etudiants/xxx</code>, <code>/etudiants/detail/6</code> — ce dernier n&#39;a pas de segment <code>:id</code>).
+Sans elle, Angular abandonne silencieusement la navigation faute de correspondance : le guard
+n&#39;est jamais évalué (il n&#39;est atteint que si toute l&#39;URL matche l&#39;arbre <code>etudiants/*</code>), et la
+vue précédente peut rester affichée. La wildcard doit rester le DERNIER élément du tableau :
+les routes sont testées dans l&#39;ordre et <code>**</code> matche tout.</p>
 </div>
                 </td>
             </tr>

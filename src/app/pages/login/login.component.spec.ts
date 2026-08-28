@@ -5,7 +5,6 @@ import { of, throwError } from 'rxjs';
 
 import { LoginComponent } from './login.component';
 import { UserService } from '../../core/service/user.service';
-import { UserMockService } from '../../core/service/user-mock.service';
 import { AuthService } from '../../core/service/auth.service';
 import { LoginResponse } from '../../core/models/LoginResponse';
 
@@ -22,10 +21,9 @@ describe('LoginComponent', () => {
       providers: [
         provideHttpClient(),
         provideRouter([]),
-        // UserMockService n'implémente pas vraiment UserService (login/register renvoient
-        // toujours un of() vide) : on ne s'en sert que comme instance de départ, puis on
-        // surcharge login()/register() par test avec jest.spyOn pour contrôler succès/erreur.
-        { provide: UserService, useValue: new UserMockService() },
+        // Stub neutre : login() renvoie un observable vide ; chaque test le surcharge
+        // avec jest.spyOn(...).mockReturnValue(...) pour contrôler succès/erreur.
+        { provide: UserService, useValue: { login: () => of() } },
       ]
     })
       .compileComponents();

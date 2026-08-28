@@ -1,27 +1,23 @@
-/** Construit un faux JWT (signature bidon) avec un claim `exp` dans le futur. */
-function fakeJwt(): string {
-  const base64url = (obj: object) =>
-    btoa(JSON.stringify(obj)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
-  const exp = Math.floor(Date.now() / 1000) + 3600
-  return `${base64url({ alg: 'HS256' })}.${base64url({ exp })}.signature`
-}
+import { fakeJwt } from './jwt'
 
 declare global {
   namespace Cypress {
     interface Chainable {
       /**
-       * Visite `path` avec un JWT valide déjà en `sessionStorage` avant que l'app ne démarre,
-       * pour atteindre directement les écrans protégés par `authGuard` sans repasser par /login.
+       * Visite `path` avec un JWT déjà posé en `sessionStorage` avant le démarrage de l'app,
+       * pour atteindre directement un écran protégé par `authGuard` sans repasser par /login.
+       * `{ expired: true }` pose un token périmé (claim `exp` dans le passé).
        */
-      visitAuthenticated(path: string): Chainable<Cypress.AUTWindow>
+      visitAuthenticated(path: string, options?: { expired?: boolean }): Chainable<Cypress.AUTWindow>
     }
   }
 }
 
-Cypress.Commands.add('visitAuthenticated', (path: string) => {
+Cypress.Commands.add('visitAuthenticated', (path: string, options?: { expired?: boolean }) => {
+  const token = fakeJwt(options?.expired ? -3600 : 3600)
   return cy.visit(path, {
     onBeforeLoad(win) {
-      win.sessionStorage.setItem('authToken', fakeJwt())
+      win.sessionStorage.setItem('authToken', token)
     }
   })
 })

@@ -38,6 +38,17 @@ jobs:
           browser: electron
           install: false
 
+      # Tests de composants (src/**/*.component.cy.ts) : Cypress démarre son propre devServer
+      # Angular/Webpack, aucun `npm start` requis. Le `before:run` de cypress-report.ts ne
+      # purge que les lignes des specs de CETTE campagne : les résultats e2e ci-dessus sont
+      # conservés dans le rapport Cypress.
+      - name: Tests de composants (Cypress)
+        uses: cypress-io/github-action@v6
+        with:
+          component: true
+          browser: electron
+          install: false
+
       - name: Résumé de couverture
         if: always()
         run: |

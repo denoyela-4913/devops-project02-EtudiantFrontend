@@ -4,7 +4,6 @@ import { of } from 'rxjs';
 
 import { RegisterComponent } from './register.component';
 import { UserService } from '../../core/service/user.service';
-import { UserMockService } from '../../core/service/user-mock.service';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -19,9 +18,9 @@ describe('RegisterComponent', () => {
       imports: [RegisterComponent],
       providers: [
         provideHttpClient(),
-        // UserMockService sert d'instance de départ ; on surcharge register() par test
-        // avec jest.spyOn pour contrôler la réponse.
-        { provide: UserService, useValue: new UserMockService() },
+        // Stub neutre : register() renvoie un observable vide ; chaque test le surcharge
+        // au besoin avec jest.spyOn(...).mockReturnValue(...) pour contrôler la réponse.
+        { provide: UserService, useValue: { register: () => of() } },
       ]
     })
       .compileComponents();

@@ -2,7 +2,8 @@
     "extends": "../tsconfig.json",
     "exclude": [
         "test.ts",
-        "**/*.spec.ts"
+        "**/*.spec.ts",
+        "**/*.cy.ts"
     ],
     "include": [
         "../src/*.ts",

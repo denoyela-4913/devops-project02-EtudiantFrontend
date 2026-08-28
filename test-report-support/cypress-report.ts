@@ -45,6 +45,8 @@ function categoryClass(categorie: string): string {
       return 'cat-unitaire';
     case 'Intégration':
       return 'cat-integration';
+    case 'Architecture':
+      return 'cat-architecture';
     case 'Fonctionnel':
       return 'cat-fonctionnel';
     case 'E2E':
@@ -142,6 +144,7 @@ function writeHtml(results: Map<string, TestRow>): void {
   .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: bold; color: white; }
   .cat-unitaire { background: #4338ca; }
   .cat-integration { background: #0f766e; }
+  .cat-architecture { background: #15803d; }
   .cat-fonctionnel { background: #a16207; }
   .cat-e2e { background: #9d174d; }
   .cat-non-categorise { background: #6b7280; }
@@ -178,10 +181,18 @@ export function registerTestReport(on: Cypress.PluginEvents): void {
 
   on('before:run', (details: any) => {
     results = loadExisting();
-    const specs = details.specs || [];
-    const fullCampaign = specs.length > 1;
-    if (fullCampaign) {
-      results.clear();
+    const specs: string[] = (details.specs || []).map((s: any) =>
+      path.relative(process.cwd(), s.relative || s.absolute).replace(/\\/g, '/')
+    );
+    // Campagne = plusieurs specs : on repart de zéro pour CES fichiers uniquement. Ainsi un
+    // run e2e (`cypress run`) n'efface pas les lignes des tests de composants (`cypress run
+    // --component`, exécuté dans un step CI séparé) et inversement.
+    if (specs.length > 1) {
+      for (const [key, row] of [...results.entries()]) {
+        if (specs.includes(row.fichier)) {
+          results.delete(key);
+        }
+      }
     }
   });
 

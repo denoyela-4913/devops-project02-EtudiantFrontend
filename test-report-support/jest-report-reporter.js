@@ -34,9 +34,13 @@ function escapeHtml(value) {
   return (value || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+// Un test-garde qui protège l'intégrité d'une autre suite (pas de code applicatif testé) => Architecture.
 // Une classe testée seule (dépendances absentes ou mockées) => Unitaire.
 // Un composant orchestré avec de vrais collaborateurs (Router, AuthService) via TestBed => Intégration.
 function categoryFor(fichier) {
+  if (/\.e2e-coverage\.spec\.ts$/.test(fichier)) {
+    return 'Architecture';
+  }
   if (/\.interceptor\.spec\.ts$/.test(fichier)) {
     return 'Intégration';
   }
@@ -53,6 +57,8 @@ function categoryClass(categorie) {
       return 'cat-unitaire';
     case 'Intégration':
       return 'cat-integration';
+    case 'Architecture':
+      return 'cat-architecture';
     case 'Fonctionnel':
       return 'cat-fonctionnel';
     case 'E2E':
@@ -179,6 +185,7 @@ class TestReportReporter {
   .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.78rem; font-weight: bold; color: white; }
   .cat-unitaire { background: #4338ca; }
   .cat-integration { background: #0f766e; }
+  .cat-architecture { background: #15803d; }
   .cat-fonctionnel { background: #a16207; }
   .cat-e2e { background: #9d174d; }
   .cat-non-categorise { background: #6b7280; }
